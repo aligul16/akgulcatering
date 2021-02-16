@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - Yemek Kategorisi Ekle";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models
+@{
+    List<food_category> food_categories = (List<food_category>)ViewData["food_categories"];
+}
+
+<div class="col-md-10">
+
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Yemek Kategorisi Sayfası</div>
+
+        <form action="/Admin_Sistem/Transition_YemekKategoriEkle" method="post">
+            <div class="input-group" style="margin:30px;">
+                <span class="input-group-addon" id="sizing-addon1">Kategori adı</span>
+
+                <input name="name" type="text" class="form-control" placeholder="İsim Girin">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit"> Ekle  </button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+
+
+        <hr />
+
+
+        <div class="panel panel-info" style="margin:25px;">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Yemek Kategorileri</div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Kategori Adı</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                 @foreach (food_category f_category in food_categories)
+                 {
+                    <tr>
+                        <td>@f_category.name</td>
+                        <td>
+                            <a class="btn btn-danger" data-toggle="confirmation" data-title="Kategori Silinsin mi?"
+                               href="/Admin_Sistem/Transition_YemekKategoriSil/@f_category.id"  data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                            <a class="btn btn-warning" href="/Admin_Sistem/Kategoriye_Yemek_Ekle/@f_category.id">Düzenle</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div><!-- /.row -->
+
+</div>
+</div>

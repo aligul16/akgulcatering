@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Istatistik";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models;
+
+@{
+    List<StatisticModel> statisticByYears = (List<StatisticModel>)ViewData["statisticByYears"];
+    StatisticModel sumStatisticModel=statisticByYears[statisticByYears.Count-1];
+}
+<h3>Organizasyon İstatistikleri</h3>
+<br />
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>Yıl</th>
+            <th>Onaylanmamış</th>
+            <th>Bugün</th>
+            <th>Gelecek</th>
+            <th>Geçmiş</th>
+            <th>Toplam</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach (StatisticModel statisticModel in statisticByYears)
+        {
+        <tr>
+            <td>@statisticModel.year</td>
+            <td>@statisticModel.nonAccept_org_infos.Count</td>
+            <td>@statisticModel.today_org_infos.Count</td>
+            <td>@statisticModel.future_org_infos.Count</td>
+            <td>@statisticModel.finished_org_infos.Count</td>
+            <td>@(statisticModel.nonAccept_org_infos.Count + statisticModel.today_org_infos.Count + statisticModel.future_org_infos.Count + statisticModel.finished_org_infos.Count)</td>
+
+        </tr>
+
+        }
+    </tbody>
+</table>
+
+<div style="float:right">
+    <h3>Genel Toplam: @(sumStatisticModel.nonAccept_org_infos.Count + sumStatisticModel.today_org_infos.Count + sumStatisticModel.future_org_infos.Count + sumStatisticModel.finished_org_infos.Count)</h3>
+</div>

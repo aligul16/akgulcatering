@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Icerik";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+    string content_type = (string)ViewData["id"];
+    string content = (string)ViewData["content"];
+
+    string isenabled_hakkimizda = "", isenabled_sertifikalarimiz = "", isenabled_hizmetlerimiz = "", isenabled_insankaynaklari = "";
+    string caption = "";
+
+    switch (content_type)
+    {
+        case "hakkimizda":
+            isenabled_hakkimizda = "selected";
+            caption = "HAKKIMIZDA";
+            break;
+        case "sertifikalarimiz":
+            isenabled_sertifikalarimiz = "selected";
+            caption = "SERTİFİKALARIMIZ";
+            break;
+        case "hizmetlerimiz":
+            isenabled_hizmetlerimiz = "selected";
+            caption = "HİZMETLERİMİZ";
+            break;
+        case "insankaynaklari":
+            isenabled_insankaynaklari = "selected";
+            caption = "İNSAN KAYNAKLARI";
+            break;
+
+
+        default:
+            break;
+    }
+
+}
+
+<div class="col-md-8">
+
+    <div class=" panel panel-primary">
+        <div class="panel-body">
+
+            <form method="get" action="/Admin_Site/Icerik">
+                <label>Düzenlenecek İçeriğin Adı: </label>
+                <select class="form-control" id="id" name="id">
+                    <option @isenabled_hakkimizda value="hakkimizda">HAKKIMIZDA</option>
+                    <option @isenabled_sertifikalarimiz value="sertifikalarimiz">SERTİFİKALARIMIZ</option>
+                    <option @isenabled_hizmetlerimiz value="hizmetlerimiz">HİZMETLERİMİZ</option>
+                    <option @isenabled_insankaynaklari value="insankaynaklari">İNSAN KAYNAKLARI</option>
+                </select>
+                <br />
+                <input type="submit" class="btn btn-block btn-success" value="İÇERİĞİ GETİR" />
+            </form>
+
+        </div>
+    </div>
+
+    <div class=" panel panel-primary">
+        <div class="panel-body">
+
+            <form action="/Admin_Site/Transition_IcerikGuncelle" method="post">
+
+                <input type="hidden" name="key_" value="@content_type" />
+
+                <label>İçerik: @caption</label>
+
+                <hr style="border:solid 1px black;" />
+
+                <textarea name="value" id="value" class="ckeditor">@content</textarea>
+
+                <script>
+                    CKEDITOR.replace('value');
+                </script>
+
+                <hr style="border:solid 1px black;" />
+
+                <input type="submit" class="btn btn-block btn-primary" value="KAYDET" />
+
+            </form>
+        </div>
+    </div>
+
+
+</div>

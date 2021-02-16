@@ -1,0 +1,200 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - Hazır Menü Düzenle";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models
+
+@{
+    ready_menu remenu = (ready_menu)ViewData["remenu"];
+
+    List<ready_menu_and_food> ready_menu_and_foods = (List<ready_menu_and_food>)ViewData["ready_menu_and_foods"];
+
+    List<food_units> units = (List<food_units>)ViewData["units"];
+
+    List<food_category> f_categories = (List<food_category>)ViewData["f_categories"];
+
+    List<ext_CategoryAndFood> categories_and_foods = (List<ext_CategoryAndFood>)ViewData["categories_and_foods"];
+}
+
+
+<div class="col-md-9">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading"> Hazır Menü Düzenle / Detay </div>
+
+        <div class="panel-body">
+
+            <form action="/Admin_Sistem/Transition_HazirMenuDuzenle" method="post">
+
+                <input type="hidden" name="id" value="@remenu.id" />
+
+                <div class="input-group" style="margin:20px;">
+                    <span class="input-group-addon" id="sizing-addon1">Hazır Menü Adı</span>
+
+                    <input name="name" value="@remenu.name" type="text" class="form-control" placeholder="İsim Girin">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" type="submit"> KAYDET  </button>
+                    </span>
+                </div><!-- /input-group -->
+            </form>
+
+            <hr class="customized_hr" />
+
+            <div style="overflow-x:auto;">
+                <!-- LIST FOODS -->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Kategori</th>
+                            <th>Yemek</th>
+                            <th>Birim</th>
+                            <th>Miktar</th>
+                            <th>Fiyat</th>
+                            <th>Düzenle</th>
+                            <th>SİL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ready_menu_and_food menu_and_food in ready_menu_and_foods)
+                        {
+                            <tr>
+                                <td id="foodId_@menu_and_food.id" style="display:none;">@menu_and_food.food.id</td>
+                                <td id="remenuAndFoodId_@menu_and_food.id" style="display:none;">@menu_and_food.id</td>
+                                <td>@menu_and_food.food.food_category.name</td>
+                                <td id="foodName_@menu_and_food.id">@menu_and_food.food.name</td>
+                                <td id="unit_@menu_and_food.id">@units.Where(w => w.id == menu_and_food.food.unit_id).FirstOrDefault().name</td>
+                                <td id="quantity_@menu_and_food.id">@menu_and_food.quantity</td>
+                                <td id="price_@menu_and_food.id">@menu_and_food.price</td>
+                                <td>
+                                    <button type="button" id="menuItem_@menu_and_food.id" class="btn btn-primary remenu_item" data-toggle="modal" data-target="#ornekModal">
+                                        Düzenle
+                                    </button>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" data-toggle="confirmation" data-title="Kategori Silinsin mi?"
+                                       href="/Admin_Sistem/Transition_HazirMenuYemekSil/@remenu.id-@menu_and_food.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <hr class="customized_hr" />
+
+
+
+
+            <label for="hazir_menu">Yemek Kategorisi: </label>
+            <select class="form-control" id="select_category" name="select_category">
+                @foreach (food_category f_category in f_categories)
+                {
+                    <option value="@f_category.id">@f_category.name</option>
+                }
+            </select>
+
+            <br />
+            <br />
+
+
+
+            <div style="overflow-x:auto;">
+                <form action="/Admin_Sistem/Transition_HazirMenuyeYemekEkle" method="post">
+
+                    <input type="hidden" name="ready_menu_id" id="remenu_id" value="@remenu.id" />
+
+                    <label for="yemek">Yemek: </label>
+                    <select class="form-control form-group-lg" id="food_id" name="food_id"></select>
+
+                    <br />
+                    <br />
+
+                    <div style="overflow-x:auto;">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Birim</th>
+                                    <th>Miktar</th>
+                                    <th>Fiyat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input name="unit" type="text" class="form-control" id="unit" disabled value="">
+                                    </td>
+                                    <td>
+                                        <input name="quantity" type="text" class="form-control" id="quantity" value="">
+                                    </td>
+                                    <td>
+                                        <input name="price" type="text" class="form-control" id="price" value="">
+                                    </td>
+
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="btn btn-block btn-success" type="submit">KAYDET</button>
+                </form>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="ornekModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalFoodName"></h4>
+            </div>
+
+            <form action="/Admin_Sistem/Transition_HazirMenuYemekDuzenle" method="post">
+                <div class="modal-body">
+
+                    <input type="hidden" name="ready_menu_id" id="remenu_id" value="@remenu.id" />
+                    <input type="hidden" name="id" id="modalRemenuAndFoodId" value="" />
+
+                    <input type="hidden" id="modalFoodId" name="food_id" value="" />
+
+                    <div style="overflow-x:auto;">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Birim</th>
+                                    <th>Miktar</th>
+                                    <th>Fiyat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input name="unit" type="text" class="form-control" id="modalUnit" disabled value="">
+                                    </td>
+                                    <td>
+                                        <input name="quantity" type="text" class="form-control" id="modalQuantity" value="">
+                                    </td>
+                                    <td>
+                                        <input name="price" type="text" class="form-control" id="modalPrice" value="">
+                                    </td>
+
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="btn btn-block btn-success" type="submit">DÜZENLE</button>
+
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

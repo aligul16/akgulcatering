@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Akgul_Yemek.Models
+@{
+    Site_Istatistik_Model istatistik = (Site_Istatistik_Model)ViewData["statistics"];
+}
+
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">İstatistikler</div>
+    <div class="panel-body">
+
+
+        <table class="table table-bordered">
+            <thead>
+                <tr class="info">
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="info">
+                    <td>KULLANICI</td>
+                    <td>@istatistik.username</td>
+                </tr>
+                <tr class="success">
+                    <td>SLAYT SAYISI</td>
+                    <td>@istatistik.slider_count</td>
+                </tr>
+                <tr class="info">
+                    <td>MENU/YEMEK SAYISI</td>
+                    <td>@istatistik.menu_count / @istatistik.food_count</td>
+                </tr>
+                <tr class="success">
+                    <td>GALERİ SAYISI</td>
+                    <td>@istatistik.gallery_count</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>

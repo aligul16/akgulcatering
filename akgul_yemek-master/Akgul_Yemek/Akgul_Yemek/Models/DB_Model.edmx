@@ -1,0 +1,986 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="akgul_yemek_dbEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="details">
+          <Key>
+            <PropertyRef Name="key_" />
+          </Key>
+          <Property Name="key_" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="value" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="food">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="unit_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="price" Type="float" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="food_category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="food_units">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gallery_categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gallery_images">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="file_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="title_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gallery_titles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="keywords" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="organization_and_food">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="organization_information_id" Type="int" Nullable="false" />
+          <Property Name="food_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="price" Type="real" Nullable="false" />
+          <Property Name="total_price" Type="real" Nullable="false" />
+          <Property Name="people_count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="organization_and_service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="organization_information_id" Type="int" Nullable="false" />
+          <Property Name="organization_service_id" Type="int" Nullable="false" />
+          <Property Name="information" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="organization_information">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="organization_category_id" Type="int" Nullable="false" />
+          <Property Name="organization_name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="name_surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="telephone" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="telephone2" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="time" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="people_count" Type="int" Nullable="false" />
+          <Property Name="referance" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="down_payment" Type="int" Nullable="false" />
+          <Property Name="organizators_adress" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="organization_adress" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="organization_status" Type="int" Nullable="false" />
+          <Property Name="total_price" Type="int" Nullable="false" />
+          <Property Name="discount" Type="int" Nullable="false" />
+          <Property Name="count_cook" Type="int" Nullable="false" />
+          <Property Name="count_chef" Type="int" Nullable="false" />
+          <Property Name="count_waiter" Type="int" Nullable="false" />
+          <Property Name="count_other" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="organization_service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="organization_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="color" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ready_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ready_menu_and_food">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ready_menu_id" Type="int" Nullable="false" />
+          <Property Name="food_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="price" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="site_food_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="site_menu_id" Type="int" Nullable="false" />
+          <Property Name="image_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="site_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="slider">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="filename" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="keywords" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="telephone" />
+          </Key>
+          <Property Name="telephone" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="job" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="type" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_food_food_category">
+          <End Role="food_category" Type="Self.food_category" Multiplicity="1" />
+          <End Role="food" Type="Self.food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food_category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="food">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_food_food_units">
+          <End Role="food_units" Type="Self.food_units" Multiplicity="1" />
+          <End Role="food" Type="Self.food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food_units">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="food">
+              <PropertyRef Name="unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GTitles_CategoryID_to_GCategory_ID">
+          <End Role="gallery_categories" Type="Self.gallery_categories" Multiplicity="1" />
+          <End Role="gallery_titles" Type="Self.gallery_titles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery_categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="gallery_titles">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_organization_and_food_food">
+          <End Role="food" Type="Self.food" Multiplicity="1" />
+          <End Role="organization_and_food" Type="Self.organization_and_food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="organization_and_food">
+              <PropertyRef Name="food_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_organization_and_food_organization_information">
+          <End Role="organization_information" Type="Self.organization_information" Multiplicity="1" />
+          <End Role="organization_and_food" Type="Self.organization_and_food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization_information">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="organization_and_food">
+              <PropertyRef Name="organization_information_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_organization_and_service_organization_information">
+          <End Role="organization_information" Type="Self.organization_information" Multiplicity="1" />
+          <End Role="organization_and_service" Type="Self.organization_and_service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization_information">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="organization_and_service">
+              <PropertyRef Name="organization_information_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_organization_and_service_organization_service">
+          <End Role="organization_service" Type="Self.organization_service" Multiplicity="1" />
+          <End Role="organization_and_service" Type="Self.organization_and_service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization_service">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="organization_and_service">
+              <PropertyRef Name="organization_service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_organization_information_organization_type">
+          <End Role="organization_type" Type="Self.organization_type" Multiplicity="1" />
+          <End Role="organization_information" Type="Self.organization_information" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="organization_information">
+              <PropertyRef Name="organization_category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ready_menu_and_food_food">
+          <End Role="food" Type="Self.food" Multiplicity="1" />
+          <End Role="ready_menu_and_food" Type="Self.ready_menu_and_food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ready_menu_and_food">
+              <PropertyRef Name="food_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ready_menu_and_food_ready_menu">
+          <End Role="ready_menu" Type="Self.ready_menu" Multiplicity="1" />
+          <End Role="ready_menu_and_food" Type="Self.ready_menu_and_food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ready_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ready_menu_and_food">
+              <PropertyRef Name="ready_menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_site_food_menu_site_menu">
+          <End Role="site_menu" Type="Self.site_menu" Multiplicity="1" />
+          <End Role="site_food_menu" Type="Self.site_food_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="site_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="site_food_menu">
+              <PropertyRef Name="site_menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="akgul_yemek_dbEntitiesStoreContainer">
+          <EntitySet Name="details" EntityType="Self.details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="food" EntityType="Self.food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="food_category" EntityType="Self.food_category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="food_units" EntityType="Self.food_units" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gallery_categories" EntityType="Self.gallery_categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gallery_images" EntityType="Self.gallery_images" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gallery_titles" EntityType="Self.gallery_titles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="organization_and_food" EntityType="Self.organization_and_food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="organization_and_service" EntityType="Self.organization_and_service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="organization_information" EntityType="Self.organization_information" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="organization_service" EntityType="Self.organization_service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="organization_type" EntityType="Self.organization_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ready_menu" EntityType="Self.ready_menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ready_menu_and_food" EntityType="Self.ready_menu_and_food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="site_food_menu" EntityType="Self.site_food_menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="site_menu" EntityType="Self.site_menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="slider" EntityType="Self.slider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_food_food_category" Association="Self.FK_food_food_category">
+            <End Role="food_category" EntitySet="food_category" />
+            <End Role="food" EntitySet="food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_food_food_units" Association="Self.FK_food_food_units">
+            <End Role="food_units" EntitySet="food_units" />
+            <End Role="food" EntitySet="food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GTitles_CategoryID_to_GCategory_ID" Association="Self.FK_GTitles_CategoryID_to_GCategory_ID">
+            <End Role="gallery_categories" EntitySet="gallery_categories" />
+            <End Role="gallery_titles" EntitySet="gallery_titles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_organization_and_food_food" Association="Self.FK_organization_and_food_food">
+            <End Role="food" EntitySet="food" />
+            <End Role="organization_and_food" EntitySet="organization_and_food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_organization_and_food_organization_information" Association="Self.FK_organization_and_food_organization_information">
+            <End Role="organization_information" EntitySet="organization_information" />
+            <End Role="organization_and_food" EntitySet="organization_and_food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_organization_and_service_organization_information" Association="Self.FK_organization_and_service_organization_information">
+            <End Role="organization_information" EntitySet="organization_information" />
+            <End Role="organization_and_service" EntitySet="organization_and_service" />
+          </AssociationSet>
+          <AssociationSet Name="FK_organization_and_service_organization_service" Association="Self.FK_organization_and_service_organization_service">
+            <End Role="organization_service" EntitySet="organization_service" />
+            <End Role="organization_and_service" EntitySet="organization_and_service" />
+          </AssociationSet>
+          <AssociationSet Name="FK_organization_information_organization_type" Association="Self.FK_organization_information_organization_type">
+            <End Role="organization_type" EntitySet="organization_type" />
+            <End Role="organization_information" EntitySet="organization_information" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ready_menu_and_food_food" Association="Self.FK_ready_menu_and_food_food">
+            <End Role="food" EntitySet="food" />
+            <End Role="ready_menu_and_food" EntitySet="ready_menu_and_food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ready_menu_and_food_ready_menu" Association="Self.FK_ready_menu_and_food_ready_menu">
+            <End Role="ready_menu" EntitySet="ready_menu" />
+            <End Role="ready_menu_and_food" EntitySet="ready_menu_and_food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_site_food_menu_site_menu" Association="Self.FK_site_food_menu_site_menu">
+            <End Role="site_menu" EntitySet="site_menu" />
+            <End Role="site_food_menu" EntitySet="site_food_menu" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="akgul_yemek_dbEntities" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="details">
+          <Key>
+            <PropertyRef Name="key_" />
+          </Key>
+          <Property Name="key_" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="food">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="unit_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Double" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="food_category" Relationship="Self.FK_food_food_category" FromRole="food" ToRole="food_category" />
+          <NavigationProperty Name="food_units" Relationship="Self.FK_food_food_units" FromRole="food" ToRole="food_units" />
+          <NavigationProperty Name="organization_and_food" Relationship="Self.FK_organization_and_food_food" FromRole="food" ToRole="organization_and_food" />
+          <NavigationProperty Name="ready_menu_and_food" Relationship="Self.FK_ready_menu_and_food_food" FromRole="food" ToRole="ready_menu_and_food" />
+        </EntityType>
+        <EntityType Name="food_category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="food" Relationship="Self.FK_food_food_category" FromRole="food_category" ToRole="food" />
+        </EntityType>
+        <EntityType Name="food_units">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="food" Relationship="Self.FK_food_food_units" FromRole="food_units" ToRole="food" />
+        </EntityType>
+        <EntityType Name="gallery_categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="gallery_titles" Relationship="Self.FK_GTitles_CategoryID_to_GCategory_ID" FromRole="gallery_categories" ToRole="gallery_titles" />
+        </EntityType>
+        <EntityType Name="gallery_images">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="file_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="title_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gallery_titles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="keywords" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="gallery_categories" Relationship="Self.FK_GTitles_CategoryID_to_GCategory_ID" FromRole="gallery_titles" ToRole="gallery_categories" />
+        </EntityType>
+        <EntityType Name="organization_and_food">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="organization_information_id" Type="Int32" Nullable="false" />
+          <Property Name="food_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Single" Nullable="false" />
+          <Property Name="total_price" Type="Single" Nullable="false" />
+          <Property Name="people_count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="food" Relationship="Self.FK_organization_and_food_food" FromRole="organization_and_food" ToRole="food" />
+          <NavigationProperty Name="organization_information" Relationship="Self.FK_organization_and_food_organization_information" FromRole="organization_and_food" ToRole="organization_information" />
+        </EntityType>
+        <EntityType Name="organization_and_service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="organization_information_id" Type="Int32" Nullable="false" />
+          <Property Name="organization_service_id" Type="Int32" Nullable="false" />
+          <Property Name="information" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="organization_information" Relationship="Self.FK_organization_and_service_organization_information" FromRole="organization_and_service" ToRole="organization_information" />
+          <NavigationProperty Name="organization_service" Relationship="Self.FK_organization_and_service_organization_service" FromRole="organization_and_service" ToRole="organization_service" />
+        </EntityType>
+        <EntityType Name="organization_information">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="organization_category_id" Type="Int32" Nullable="false" />
+          <Property Name="organization_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name_surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telephone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telephone2" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="people_count" Type="Int32" Nullable="false" />
+          <Property Name="referance" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="down_payment" Type="Int32" Nullable="false" />
+          <Property Name="organizators_adress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="organization_adress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="organization_status" Type="Int32" Nullable="false" />
+          <Property Name="total_price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="organization_and_food" Relationship="Self.FK_organization_and_food_organization_information" FromRole="organization_information" ToRole="organization_and_food" />
+          <NavigationProperty Name="organization_and_service" Relationship="Self.FK_organization_and_service_organization_information" FromRole="organization_information" ToRole="organization_and_service" />
+          <NavigationProperty Name="organization_type" Relationship="Self.FK_organization_information_organization_type" FromRole="organization_information" ToRole="organization_type" />
+          <Property Name="discount" Type="Int32" Nullable="false" />
+          <Property Name="count_cook" Type="Int32" Nullable="false" />
+          <Property Name="count_chef" Type="Int32" Nullable="false" />
+          <Property Name="count_waiter" Type="Int32" Nullable="false" />
+          <Property Name="count_other" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="organization_service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="organization_and_service" Relationship="Self.FK_organization_and_service_organization_service" FromRole="organization_service" ToRole="organization_and_service" />
+        </EntityType>
+        <EntityType Name="organization_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="organization_information" Relationship="Self.FK_organization_information_organization_type" FromRole="organization_type" ToRole="organization_information" />
+        </EntityType>
+        <EntityType Name="ready_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ready_menu_and_food" Relationship="Self.FK_ready_menu_and_food_ready_menu" FromRole="ready_menu" ToRole="ready_menu_and_food" />
+        </EntityType>
+        <EntityType Name="ready_menu_and_food">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ready_menu_id" Type="Int32" Nullable="false" />
+          <Property Name="food_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Single" Nullable="false" />
+          <NavigationProperty Name="food" Relationship="Self.FK_ready_menu_and_food_food" FromRole="ready_menu_and_food" ToRole="food" />
+          <NavigationProperty Name="ready_menu" Relationship="Self.FK_ready_menu_and_food_ready_menu" FromRole="ready_menu_and_food" ToRole="ready_menu" />
+        </EntityType>
+        <EntityType Name="site_food_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="site_menu_id" Type="Int32" Nullable="false" />
+          <Property Name="image_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="site_menu" Relationship="Self.FK_site_food_menu_site_menu" FromRole="site_food_menu" ToRole="site_menu" />
+        </EntityType>
+        <EntityType Name="site_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="site_food_menu" Relationship="Self.FK_site_food_menu_site_menu" FromRole="site_menu" ToRole="site_food_menu" />
+        </EntityType>
+        <EntityType Name="slider">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="filename" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="keywords" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="telephone" />
+          </Key>
+          <Property Name="telephone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="job" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_food_food_category">
+          <End Role="food_category" Type="Self.food_category" Multiplicity="1" />
+          <End Role="food" Type="Self.food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food_category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="food">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_food_food_units">
+          <End Role="food_units" Type="Self.food_units" Multiplicity="1" />
+          <End Role="food" Type="Self.food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food_units">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="food">
+              <PropertyRef Name="unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_organization_and_food_food">
+          <End Role="food" Type="Self.food" Multiplicity="1" />
+          <End Role="organization_and_food" Type="Self.organization_and_food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="organization_and_food">
+              <PropertyRef Name="food_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ready_menu_and_food_food">
+          <End Role="food" Type="Self.food" Multiplicity="1" />
+          <End Role="ready_menu_and_food" Type="Self.ready_menu_and_food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ready_menu_and_food">
+              <PropertyRef Name="food_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GTitles_CategoryID_to_GCategory_ID">
+          <End Role="gallery_categories" Type="Self.gallery_categories" Multiplicity="1" />
+          <End Role="gallery_titles" Type="Self.gallery_titles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery_categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="gallery_titles">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_organization_and_food_organization_information">
+          <End Role="organization_information" Type="Self.organization_information" Multiplicity="1" />
+          <End Role="organization_and_food" Type="Self.organization_and_food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization_information">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="organization_and_food">
+              <PropertyRef Name="organization_information_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_organization_and_service_organization_information">
+          <End Role="organization_information" Type="Self.organization_information" Multiplicity="1" />
+          <End Role="organization_and_service" Type="Self.organization_and_service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization_information">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="organization_and_service">
+              <PropertyRef Name="organization_information_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_organization_and_service_organization_service">
+          <End Role="organization_service" Type="Self.organization_service" Multiplicity="1" />
+          <End Role="organization_and_service" Type="Self.organization_and_service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization_service">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="organization_and_service">
+              <PropertyRef Name="organization_service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_organization_information_organization_type">
+          <End Role="organization_type" Type="Self.organization_type" Multiplicity="1" />
+          <End Role="organization_information" Type="Self.organization_information" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="organization_information">
+              <PropertyRef Name="organization_category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ready_menu_and_food_ready_menu">
+          <End Role="ready_menu" Type="Self.ready_menu" Multiplicity="1" />
+          <End Role="ready_menu_and_food" Type="Self.ready_menu_and_food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ready_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ready_menu_and_food">
+              <PropertyRef Name="ready_menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_site_food_menu_site_menu">
+          <End Role="site_menu" Type="Self.site_menu" Multiplicity="1" />
+          <End Role="site_food_menu" Type="Self.site_food_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="site_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="site_food_menu">
+              <PropertyRef Name="site_menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="akgulcatering_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="details" EntityType="Self.details" />
+          <EntitySet Name="food" EntityType="Self.food" />
+          <EntitySet Name="food_category" EntityType="Self.food_category" />
+          <EntitySet Name="food_units" EntityType="Self.food_units" />
+          <EntitySet Name="gallery_categories" EntityType="Self.gallery_categories" />
+          <EntitySet Name="gallery_images" EntityType="Self.gallery_images" />
+          <EntitySet Name="gallery_titles" EntityType="Self.gallery_titles" />
+          <EntitySet Name="organization_and_food" EntityType="Self.organization_and_food" />
+          <EntitySet Name="organization_and_service" EntityType="Self.organization_and_service" />
+          <EntitySet Name="organization_information" EntityType="Self.organization_information" />
+          <EntitySet Name="organization_service" EntityType="Self.organization_service" />
+          <EntitySet Name="organization_type" EntityType="Self.organization_type" />
+          <EntitySet Name="ready_menu" EntityType="Self.ready_menu" />
+          <EntitySet Name="ready_menu_and_food" EntityType="Self.ready_menu_and_food" />
+          <EntitySet Name="site_food_menu" EntityType="Self.site_food_menu" />
+          <EntitySet Name="site_menu" EntityType="Self.site_menu" />
+          <EntitySet Name="slider" EntityType="Self.slider" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <AssociationSet Name="FK_food_food_category" Association="Self.FK_food_food_category">
+            <End Role="food_category" EntitySet="food_category" />
+            <End Role="food" EntitySet="food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_food_food_units" Association="Self.FK_food_food_units">
+            <End Role="food_units" EntitySet="food_units" />
+            <End Role="food" EntitySet="food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_organization_and_food_food" Association="Self.FK_organization_and_food_food">
+            <End Role="food" EntitySet="food" />
+            <End Role="organization_and_food" EntitySet="organization_and_food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ready_menu_and_food_food" Association="Self.FK_ready_menu_and_food_food">
+            <End Role="food" EntitySet="food" />
+            <End Role="ready_menu_and_food" EntitySet="ready_menu_and_food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GTitles_CategoryID_to_GCategory_ID" Association="Self.FK_GTitles_CategoryID_to_GCategory_ID">
+            <End Role="gallery_categories" EntitySet="gallery_categories" />
+            <End Role="gallery_titles" EntitySet="gallery_titles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_organization_and_food_organization_information" Association="Self.FK_organization_and_food_organization_information">
+            <End Role="organization_information" EntitySet="organization_information" />
+            <End Role="organization_and_food" EntitySet="organization_and_food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_organization_and_service_organization_information" Association="Self.FK_organization_and_service_organization_information">
+            <End Role="organization_information" EntitySet="organization_information" />
+            <End Role="organization_and_service" EntitySet="organization_and_service" />
+          </AssociationSet>
+          <AssociationSet Name="FK_organization_and_service_organization_service" Association="Self.FK_organization_and_service_organization_service">
+            <End Role="organization_service" EntitySet="organization_service" />
+            <End Role="organization_and_service" EntitySet="organization_and_service" />
+          </AssociationSet>
+          <AssociationSet Name="FK_organization_information_organization_type" Association="Self.FK_organization_information_organization_type">
+            <End Role="organization_type" EntitySet="organization_type" />
+            <End Role="organization_information" EntitySet="organization_information" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ready_menu_and_food_ready_menu" Association="Self.FK_ready_menu_and_food_ready_menu">
+            <End Role="ready_menu" EntitySet="ready_menu" />
+            <End Role="ready_menu_and_food" EntitySet="ready_menu_and_food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_site_food_menu_site_menu" Association="Self.FK_site_food_menu_site_menu">
+            <End Role="site_menu" EntitySet="site_menu" />
+            <End Role="site_food_menu" EntitySet="site_food_menu" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="akgul_yemek_dbEntitiesStoreContainer" CdmEntityContainer="akgulcatering_dbEntities">
+          <EntitySetMapping Name="details">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.details">
+              <MappingFragment StoreEntitySet="details">
+                <ScalarProperty Name="key_" ColumnName="key_" />
+                <ScalarProperty Name="value" ColumnName="value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="food">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.food">
+              <MappingFragment StoreEntitySet="food">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="food_category">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.food_category">
+              <MappingFragment StoreEntitySet="food_category">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="food_units">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.food_units">
+              <MappingFragment StoreEntitySet="food_units">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gallery_categories">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.gallery_categories">
+              <MappingFragment StoreEntitySet="gallery_categories">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gallery_images">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.gallery_images">
+              <MappingFragment StoreEntitySet="gallery_images">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="title_id" ColumnName="title_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gallery_titles">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.gallery_titles">
+              <MappingFragment StoreEntitySet="gallery_titles">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="keywords" ColumnName="keywords" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="organization_and_food">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.organization_and_food">
+              <MappingFragment StoreEntitySet="organization_and_food">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="organization_information_id" ColumnName="organization_information_id" />
+                <ScalarProperty Name="food_id" ColumnName="food_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+                <ScalarProperty Name="people_count" ColumnName="people_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="organization_and_service">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.organization_and_service">
+              <MappingFragment StoreEntitySet="organization_and_service">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="organization_information_id" ColumnName="organization_information_id" />
+                <ScalarProperty Name="organization_service_id" ColumnName="organization_service_id" />
+                <ScalarProperty Name="information" ColumnName="information" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="organization_information">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.organization_information">
+              <MappingFragment StoreEntitySet="organization_information">
+                <ScalarProperty Name="count_other" ColumnName="count_other" />
+                <ScalarProperty Name="count_waiter" ColumnName="count_waiter" />
+                <ScalarProperty Name="count_chef" ColumnName="count_chef" />
+                <ScalarProperty Name="count_cook" ColumnName="count_cook" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="organization_category_id" ColumnName="organization_category_id" />
+                <ScalarProperty Name="organization_name" ColumnName="organization_name" />
+                <ScalarProperty Name="name_surname" ColumnName="name_surname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="telephone2" ColumnName="telephone2" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="people_count" ColumnName="people_count" />
+                <ScalarProperty Name="referance" ColumnName="referance" />
+                <ScalarProperty Name="down_payment" ColumnName="down_payment" />
+                <ScalarProperty Name="organizators_adress" ColumnName="organizators_adress" />
+                <ScalarProperty Name="organization_adress" ColumnName="organization_adress" />
+                <ScalarProperty Name="organization_status" ColumnName="organization_status" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="organization_service">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.organization_service">
+              <MappingFragment StoreEntitySet="organization_service">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="organization_type">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.organization_type">
+              <MappingFragment StoreEntitySet="organization_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="color" ColumnName="color" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ready_menu">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.ready_menu">
+              <MappingFragment StoreEntitySet="ready_menu">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ready_menu_and_food">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.ready_menu_and_food">
+              <MappingFragment StoreEntitySet="ready_menu_and_food">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ready_menu_id" ColumnName="ready_menu_id" />
+                <ScalarProperty Name="food_id" ColumnName="food_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="site_food_menu">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.site_food_menu">
+              <MappingFragment StoreEntitySet="site_food_menu">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="site_menu_id" ColumnName="site_menu_id" />
+                <ScalarProperty Name="image_name" ColumnName="image_name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="site_menu">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.site_menu">
+              <MappingFragment StoreEntitySet="site_menu">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="slider">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.slider">
+              <MappingFragment StoreEntitySet="slider">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="keywords" ColumnName="keywords" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="akgul_yemek_dbEntities.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="job" ColumnName="job" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,142 @@
+img{
+    cursor:pointer;
+}
+
+#gallery_stage{
+    display:none;
+    z-index:999;
+}
+
+#transparent_background{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background-color: black;
+    opacity: 0.8;
+    z-index:998;
+}
+
+#gallery_stage_close_button_mobile{
+    width:40px;
+    height:40px;
+    cursor:pointer;
+    margin:5px;
+    padding: 3px;
+    display:block;
+}
+
+#gallery_stage_right_button_mobile{
+    width:40px;
+    height:40px;
+    cursor:pointer;
+    margin:5px;
+    display:block;
+}
+
+#gallery_stage_left_button_mobile{
+    width:40px;
+    height:40px;
+    cursor:pointer;
+    margin:5px;
+    display:block;
+}
+
+#gallery_mobile_viewer_img_p{
+    position:absolute;
+    left:0%;top:20%;
+    border:solid 1px black;
+    background-color: black;
+    padding: 10px;
+    padding-bottom: 0px;
+    z-index:9999;
+    width:100%;
+}
+
+#gallery_stage_img_mobile{
+    /*width:100%;
+    height:50%;*/
+    object-fit: contain;
+}
+
+#gallery_stage_p_mobile{
+    text-align:center;
+    color: white;
+    margin-top: 10px;
+}
+
+#gallery_mobile_viewer{
+    z-index:999;
+}
+
+.gallery_desktop_video_div{
+    z-index:999;
+}
+
+#gallery_desktop_viewer{
+    position:absolute;
+    left:25%;
+    top:10%;
+    border:solid 1px white;
+    box-shadow: 0 0 6px 4px black;
+    padding: 4px;
+    background-color: black;
+    z-index:999;
+}
+
+#gallery_stage_close_button_desktop{
+    width:40px;
+    height:40px;
+    cursor:pointer;
+    margin:5px;
+    display:block;
+    padding: 3px;
+}
+
+#gallery_stage_right_button_desktop{
+    width:40px;
+    height:40px;
+    cursor:pointer;
+    margin:5px;
+    display:block;
+}
+
+#gallery_stage_left_button_desktop{
+    width:40px;
+    height:40px;
+    cursor:pointer;
+    margin:5px;
+    display:block;
+}
+
+#gallery_stage_img_desktop{
+    width:100%;
+    height:100%;
+    object-fit: contain;
+}
+
+#gallery_stage_p_desktop{
+    text-align:center;
+    color: white;
+    margin-top: 10px;
+}
+
+#gallery_mobile_viewer_buttons{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    background-color: black;
+    border: solid 1px white;
+    z-index:9999;
+}
+
+#gallery_desktop_viewer_img_p{
+    background-color: black;
+
+}
+
+#gallery_desktop_viewer_buttons{
+    background-color: black;
+}

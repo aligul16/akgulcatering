@@ -1,0 +1,348 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek -  Siparis Al Yemek";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Akgul_Yemek.Models
+@{
+    organization_information org_info = (organization_information)ViewData["org_info"];
+    ready_menu remenu = (ready_menu)ViewData["remenu"];
+
+    List<ready_menu> remenus = (List<ready_menu>)ViewData["remenus"];
+    List<food_category> f_categories = (List<food_category>)ViewData["f_categories"];
+    List<food> foods = (List<food>)ViewData["foods"];
+
+    List<organization_and_food> org_and_foods = (List<organization_and_food>)ViewData["org_and_foods"];
+}
+
+<div class="col-md-10">
+
+    <button type="button" class="btn  btn-success" data-toggle="modal" data-target="#menuSelectModal">
+        BİR MENÜNÜN YEMEKLERİNİ TOPLUCA EKLE
+    </button>
+
+    <br /><br />
+
+    <div class="panel panel-primary">
+        <div class="panel-heading"> Sipariş Yemek </div>
+
+        <div class="panel-body">
+
+            <div style="overflow-x:auto;">
+                <label for="toplam_tutar">Eklenmiş Yemekler</label>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>İsim</th>
+                            <th>Miktar</th>
+                            <th>Birim</th>
+                            <th>Fiyat</th>
+                            <th>Kişi Sayısı</th>
+                            <th>Toplam Fiyat</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{
+                    float foods_total_price = 0;
+                    float foodsTotalPriceWithDiscount = 0;
+                        }
+                        @foreach (organization_and_food _food in org_and_foods)
+                {
+                    foods_total_price += _food.total_price;
+
+                    <tr>
+                        <td id="orgAndFoodId_@_food.id" style="display: none;">@_food.id</td>
+                        <td id="foodId_@_food.id" style="display: none;">@_food.food.id</td>
+                        <td id="foodName_@_food.id">@_food.food.name</td>
+                        <td id="quantity_@_food.id">@_food.quantity</td>
+                        <td id="unit_@_food.id">@_food.food.food_units.name</td>
+                        <td id="price_@_food.id">@_food.price TL </td>
+                        <td id="peopleCount_@_food.id">@_food.people_count Kişilik </td>
+                        <td id="totalPrice_@_food.id">@_food.total_price TL </td>
+                        <td>
+                            <button type="button" id="foodItem_@_food.id" class="btn btn-primary food_item" data-toggle="modal" data-target="#ornekModal">
+                                Düzenle
+                            </button>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" data-toggle="confirmation" data-title="Yemek Silinsin mi?"
+                               href="/Admin_Sistem/Transition_SiparisYemekSil/@(_food.id+"_"+remenu.id)" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                        </td>
+                    </tr>
+
+        }
+                        @{
+                    foodsTotalPriceWithDiscount = foods_total_price - org_info.discount;
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+            <br />
+            <button type="button" class="btn  btn-success" data-toggle="modal" data-target="#addFoodModal" style="float:right;">
+                YENİ BİR YEMEK EKLE
+            </button>
+
+            <br /><br />
+
+            <table>
+                <tbody>
+
+                    <tr>
+                        <td>
+                            <label for="toplam_tutar">Yemeklerin Fiyatı</label>
+                        </td>
+                        <td>
+                            <label for="toplam_tutar">: @foods_total_price TL</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="indirim">İndirim Tutarı: </label>
+                        </td>
+                        <td>
+                            <label for="indirim">: @org_info.discount TL</label>
+                            <a style="font-size:large;" data-toggle="modal" data-target="#discountModal">(Değiştir)</a>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <label for="toplam_tutar">Toplam(İndirimli) </label>
+                        </td>
+                        <td>
+                            <label for="toplam_tutar">: @foodsTotalPriceWithDiscount TL</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="hidden-md hidden-lg" style="padding-bottom:20px;">
+            </div>
+
+            <hr class="customized_hr" />
+
+            <a href="/Admin_Sistem/SiparisAl_Servis/@org_info.id" class="btn  btn-block btn-success">YEMEKLERİ ONAYLA - SONRAKİ ADIM</a>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="ornekModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalFoodName"></h4>
+            </div>
+
+            <form action="/Admin_Sistem/Transition_SiparisYemekDuzenle" method="post">
+                <div class="modal-body">
+
+                    <input type="hidden" name="organization_information_id" id="organization_information_id" value="@org_info.id" />
+                    <input type="hidden" name="remenu_id" id="remenu_id" value="@remenu.id" />
+
+                    <input type="hidden" name="id" id="modalOrgAndFoodId" value="">
+
+                    <div style="overflow-x:auto;">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Miktar</th>
+                                    <th>Birim</th>
+                                    <th>Fiyat</th>
+                                    <th>Kişi Sayısı</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input name="quantity" type="text" class="form-control" id="modalQuantity" value="">
+                                    </td>
+                                    <td>
+                                        <input name="unit" type="text" class="form-control" id="modalUnit" disabled value="">
+                                    </td>
+                                    <td>
+                                        <input name="price" type="text" class="form-control" id="modalPrice" value="">
+                                    </td>
+                                    <td>
+                                        <input name="people_count" type="text" class="form-control" id="modalPeopleCount" value="@org_info.people_count">
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <button class="btn btn-block btn-success" type="submit">DÜZENLE</button>
+
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- add all menu's foods to organization -->
+<div class="modal fade" tabindex="-1" role="dialog" id="menuSelectModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalFoodName">BİR MENÜ SEÇİN</h4>
+            </div>
+
+            <form action="/Admin_Sistem/Transition_SiparisTumMenudekiYemekleriEkle" method="GET">
+                <div class="modal-body">
+
+                    <div style="overflow-x:auto;">
+
+                        <select name="id" class="form-control">
+                            @foreach (ready_menu _ready_menu in remenus)
+                            {
+                                <option value="@(org_info.id)_@_ready_menu.id">@_ready_menu.name</option>
+                            }
+                        </select>
+
+
+
+                    </div>
+                    <br />
+                    <br />
+                    <button class="btn btn-block btn-success" type="submit">YEMEKLERİ EKLE</button>
+
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- add new food to organization -->
+<div class="modal fade" tabindex="-1" role="dialog" id="addFoodModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalFoodName">BİR YEMEK EKLE</h4>
+            </div>
+
+            <div class="modal-body">
+
+                @*<label for="hazir_menu">Hazır Menü: </label>
+                    <select class="form-control" id="hazir_menu" name="hazir_menu">
+                        @foreach (ready_menu _remenu in remenus)
+                        {
+                            string selected_str = (_remenu.id == remenu.id) ? "selected" : "";
+                            <option @selected_str value="@_remenu.id">@_remenu.name</option>
+                        }
+                    </select>*@
+
+                <label for="hazir_menu">Yemek Kategorisi: </label>
+                <select class="form-control" id="select_category" name="select_category">
+                    @foreach (food_category f_category in f_categories)
+                    {
+                        <option value="@f_category.id">@f_category.name</option>
+                    }
+                </select>
+
+
+
+                <br />
+                <br />
+
+
+                <form action="/Admin_Sistem/Transition_SiparisYemekEkle" method="post">
+
+                    <input type="hidden" name="organization_information_id" id="organization_information_id" value="@org_info.id" />
+                    <input type="hidden" name="remenu_id" id="remenu_id" value="@remenu.id" />
+
+                    <label for="yemek">Yemek: </label>
+                    <select class="form-control form-group-lg" id="food_id" name="food_id"></select>
+
+                    <br />
+                    <br />
+
+                    <div style="overflow-x:auto;">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Birim</th>
+                                    <th>Miktar</th>
+                                    <th>Fiyat</th>
+                                    <th>Kişi Sayısı</th>
+                                    @*<th>Toplam Fiyat</th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input name="unit" type="text" class="form-control" id="unit" disabled value="">
+                                    </td>
+                                    <td>
+                                        <input name="quantity" type="text" class="form-control" id="quantity" value="">
+                                    </td>
+                                    <td>
+                                        <input name="price" type="text" class="form-control" id="price" value="">
+                                    </td>
+                                    <td>
+                                        <input name="people_count" type="text" class="form-control" id="people_count" value="@org_info.people_count">
+                                    </td>
+                                    @*<td>
+                                            <input name="total_price" type="text" class="form-control" id="total_price" value="">
+                                        </td>*@
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <br />
+
+                    <center>
+                        <button class="btn btn-block  btn btn-success" type="submit">YEMEĞİ EKLE</button>
+                    </center>
+                </form>
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!-- discount update modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="discountModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalFoodName">İNDİRİM TUTARI (TL)</h4>
+            </div>
+
+            <form action="/Admin_Sistem/Transition_SiparisIndirimGuncelle" method="post">
+                <div class="modal-body">
+
+                    <input type="hidden" name="id" id="organization_information_id" value="@org_info.id" />
+                    <input type="hidden" name="remenu_id" id="remenu_id" value="@remenu.id" />
+                    <input type="hidden" name="from" value="yemek_ekle_duzenle" />
+
+                    <div style="overflow-x:auto;">
+
+                        <input name="discount" type="number" class="form-control" id="discount" style="text-align:center;" value="@org_info.discount">
+                        <br />
+
+                    </div>
+                    <br />
+                    <button class="btn btn-block btn-success" type="submit">KAYDET</button>
+
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Giris";
+    Layout = "~/Views/Shared/_Layout_Uye.cshtml";
+}
+
+<div class="container" style="margin-top:0px">
+    <div class="col-md-12">
+        <div class="modal-dialog" style="margin-bottom:0">
+            <div class="modal-content">
+                <div class="panel-heading">
+                    <center>
+                        <h3 class="panel-title">Giriş Yapın</h3>
+                    </center>
+                </div>
+                <div class="panel-body">
+                    <center>
+                        <a class="" href="#">
+                            <img width="160" height="160" src="~/Content/images/akgul-logo.jpeg" />
+                        </a>
+                    </center>
+
+                    <hr />
+
+                    <form role="form" action="/Uye/Transition_Giris" method="post">
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Telefon Numarası " name="telephone" type="number" autofocus="">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Şifre" name="password" type="password" value="">
+                        </div>
+
+
+                        <div class="form-group">
+                            <input id="Remember" class="form-group" type="checkbox" name="isRememberMe" checked="" style="float:left;font-size:larger;" />
+                            <h4 for="Remember">&nbsp;Beni Hatırla</h4>
+                        </div>
+
+                        @if (TempData["login_message"] != null)
+                        {
+                            <center>
+                                <div class="form-group">
+                                    <label style="color:red;font-size:15px;">@TempData["login_message"].ToString()</label>
+                                </div>
+                            </center>
+                        }
+                        <center>
+                            <input type="submit" class="btn btn-sm btn-success" value="Giriş Yap" />
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+</div>

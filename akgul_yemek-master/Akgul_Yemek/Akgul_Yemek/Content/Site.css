@@ -1,0 +1,189 @@
+﻿body {
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    color: #232323;
+    background-color: #fff;
+}
+html,body,.container,.row {
+    height: 100%;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+a.navbar {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.adres {
+    position: relative;
+    font-size:15px;
+    float:left;
+    margin-right:15px;
+
+}
+ 
+/*css in before olayını kullanarak iconları set ediyorum*/
+ 
+.adres::before {
+    content: "\f041";  
+}
+
+.mail {
+    position: relative;
+    font-size:15px;
+    float:left;
+}
+ 
+/*css in before olayını kullanarak iconları set ediyorum*/
+ 
+.mail::before {
+    content: "\f0e0";
+
+}
+
+.telefon {
+    position: relative;
+    font-size:15px;
+    float:left;
+    margin-right:15px;
+}
+
+.telefon::before{
+  content: "\f095";
+} 
+
+/*css in before olayını kullanarak iconları set ediyorum*/
+ 
+.telefon:before ,.mail:before , .adres:before{
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #f32a2a;
+    font-size: 20px;
+    padding-right: 0.5em;
+   
+}
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+
+.breadcrumb > li + li:before {
+    color: white;
+}
+
+ .breadcrumb > li > a, .breadcrumb > li {
+        font-size: 20px;
+        color: #fff;
+ }
+
+ .customized_hr{
+     border: 2px solid black;
+ }
+
+
+
+
+ .gap-right {
+            margin-right: 10px;
+            width: 90px;
+            height: 77px;
+            border: 2px solid #ff6a00;
+        }
+
+        .menu-title {
+            font-size: 20px;
+            margin-top: 0px;
+        }
+
+        .social-icons {
+            padding: 10px;
+            font-size: 30px;
+        }
+
+        .social-icons_mobile {
+            padding: 10px;
+            font-size: 30px;
+        }
+
+        .price {
+            font-size: 5px;
+        }
+
+        .menu-content {
+            margin-bottom: 35px;
+        }
+
+        p {
+            font-size: 17px;
+        }
+
+        .img_border {
+            border: 4px solid #fff;
+        }
+
+        .img-responsive {
+            display: block;
+            height: auto;
+            max-width: 89%;
+        }
+
+        .dropdown-menu li a {
+            font-size: 18px;
+            color: black;
+            text-align: center;
+        }
+
+

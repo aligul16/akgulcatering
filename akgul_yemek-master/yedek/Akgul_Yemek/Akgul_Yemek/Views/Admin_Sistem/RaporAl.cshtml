@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Rapor Al";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@{ 
+    string shortNowDateTime = DateTime.Now.ToShortDateString();
+    string day = shortNowDateTime.Split('.')[0];
+    if (day.Length==1)
+    {
+        shortNowDateTime = "0" + shortNowDateTime;
+    }
+}
+
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+<link href="~/Content/clockpicker/bootstrap-clockpicker.min.css" rel="stylesheet" />
+<script src="~/Content/clockpicker/bootstrap-clockpicker.min.js"></script>
+<link href="~/Content/datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="~/Content/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="~/Content/datepicker/locales/bootstrap-datepicker.tr.min.js"></script>
+
+<div class="col-md-7">
+
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">RAPOR AL</div>
+        <div class="panel-body">
+            <form action="/Admin_Sistem/Transition_RaporAl" method="post">
+
+                <label for="tarih">Rapor Tipi:</label>
+                <select name="reportType" class="form-control">
+                    <option value="organizasyonlarDetay">Organizasyon Detay</option>
+                    <option value="organizasyonlarOdeme">Organizasyon Ödeme</option>
+                    <option value="personelSayisi">Çalışacak Personel Sayısı</option>
+                    <option value="yemekMiktarlari">Yemek Miktarları</option>
+                </select>
+
+                <br />
+
+                <label for="tarih">Başlangıç Tarihi:</label>
+                <div class="input-group date">
+                    <input type="text" id="startDate" name="startDate" required value="@shortNowDateTime" class=" form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+
+                <br />
+
+                <label for="tarih">Bitiş Tarihi:</label>
+                <div class="input-group date">
+                    <input type="text" id="stopDate" name="stopDate" required value="@shortNowDateTime" class=" form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+
+                <br /><br />
+
+                <input type="submit" formtarget="_blank" class="btn btn-primary btn-block" value="RAPORU İNDİR" />
+            </form>
+        </div>
+
+
+
+    </div>
+</div>
+
+<script>
+    $('.input-group.date').datepicker({
+        maxViewMode: 0,
+        todayBtn: "linked",
+        language: "tr",
+        calendarWeeks: true,
+        autoclose: true,
+        todayHighlight: true
+    });
+</script>

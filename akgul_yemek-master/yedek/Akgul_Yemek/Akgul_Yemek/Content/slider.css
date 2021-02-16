@@ -1,0 +1,145 @@
+﻿.fa {
+        padding: 30px;
+        font-size: 50px;
+        width: 50px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 50%;
+    }
+
+        /* Add a hover effect if you want */
+        .fa:hover {
+            opacity: 0.7;
+        }
+
+    /* Set a specific color for each brand */
+
+    /* Facebook */
+    .fa-facebook {
+        background: #3B5998;
+        color: white;
+    }
+
+   .fa-instagram {
+  background: #125688;
+  color: white;
+}
+
+.slider {
+  position: relative;
+}
+
+#slider {
+  position: relative;
+  overflow: hidden;
+  width: 100% !important;
+}
+#slider ul {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 99999px;
+  overflow: hidden;
+  list-style: none;
+}
+#slider ul li {
+  position: relative;
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+}
+#slider ul li .slide {
+  background-size: cover;
+  height: 100vh;
+}
+
+button.control_prev, button.control_next {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  display: block;
+  border: none;
+  width: 2em;
+  height: 2em;
+  line-height: 1.9em;
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 2rem;
+  opacity: 0.8;
+  cursor: pointer;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+button.control_prev:focus, button.control_next:focus {
+  outline: none;
+  border: 1px rgba(255, 255, 255, 0.5) solid;
+}
+button.control_prev:hover, button.control_next:hover {
+  opacity: 1;
+  -webkit-transition: all 0.2s ease;
+}
+
+button.control_prev {
+  left: 2rem;
+}
+
+button.control_next {
+  right: 2rem;
+}
+
+.progress_slider {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  height: .5rem;
+  width: 100%;
+  bottom: 0;
+  border-top: 1px rgba(0, 0, 0, 0.15) solid;
+}
+.progress_slider .bar {
+  height: 100%;
+  width: 0%;
+  background: #fff;
+}
+
+.teaser {
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  width: 100%;
+  color: #fff;
+  transform: translateY(-50%);
+}
+.teaser h2 {
+  font-size: 5em;
+  text-transform: uppercase;
+  line-height: 1.5em;
+  color: #fff;
+}
+.teaser p {
+  font-size: 1.3em;
+  line-height: 1.3em;
+  border-top: 2px #fff solid;
+  width: 33%;
+  min-width: 25rem;
+  margin: 0rem auto;
+  padding: 1.5rem 0;
+}
+.teaser h3 {
+  border-bottom: 2px #fff solid;
+  width: 33%;
+  padding: 1.5rem 0;
+  margin: 0rem auto;
+  min-width: 25rem;
+}
+.teaser a {
+  margin-left: .5rem;
+  margin-right: .5rem;
+}

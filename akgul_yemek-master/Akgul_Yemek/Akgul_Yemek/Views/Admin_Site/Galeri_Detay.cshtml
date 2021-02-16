@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - Galeri Detay";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models
+
+@{
+    gallery_titles albume = (gallery_titles)ViewData["albume"];
+    List<gallery_images> albume_images = (List<gallery_images>)ViewData["albume_images"];   
+}
+
+
+<div class="col-md-8">
+    
+    <div class=" panel panel-primary">
+        <div class="panel-body">
+            <form action="/Admin_Site/Transition_GaleriTitleGuncelle" method="post">
+
+                <input type="hidden" name="id" value="@albume.id" />
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon1">Galeri Adı</span>
+                    <input name="title" type="text" class="form-control" value="@albume.title" placeholder="Galeri Adı Girin..">
+                </div><!-- /input-group -->
+
+                <div class="input-group" style="margin-top:10px;">
+                    <span class="input-group-addon" id="sizing-addon1">&nbsp; Etiketler&nbsp;</span>
+                    <input name="keywords" type="text" class="form-control" value="@albume.keywords" placeholder="Etiketler..">
+                </div><!-- /input-group -->
+                <br />
+                <button class="btn btn-success" type="submit">GÜNCELLE</button>
+            </form>
+
+        </div>
+    </div>
+
+
+
+    <hr />
+
+
+
+    @using (Html.BeginForm("Transition_GaleriResimEkle", "Admin_Site", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <input type="hidden" name="title_id" value="@albume.id" />
+
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="font-size:20px;">
+                <label>GALERİYE FOTOĞRAF YÜKLE</label>
+            </div>
+            <div class="panel-body" style="font-size:15px;">
+                <div class="input-group">
+                    <h4>Cihazınızdan Resim Yükleyin</h4>
+                    <input class="form-control-file" type="file" name="picture" accept="image/*"><br />
+                    <hr style="border: solid 1px black;"/>
+                    <h4>VEYA Yotube'dan Video Yükleyin</h4>
+                    <input type="text" name="videoUrl" class="form-control" placeholder="Video Url" />
+                    <br /><br />
+                    <hr style="border: solid 1px black;" />
+                    <br />
+
+                    <input class="btn btn-success" type="submit" value="&nbsp;&nbsp; YÜKLE &nbsp;&nbsp;">
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+    <hr />
+
+
+    <div class=" panel panel-primary">
+        <div class="panel-heading" style="font-size:20px;">@albume.title albümüne ait fotoğraflar</div>
+
+        <div class="panel-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Fotoğraf/Video</th>
+                    <th>Sil</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach (gallery_images gimage in albume_images)
+                {
+                    string content_type = (gimage.file_name.Contains(".")) ? "image" : "video";
+                    string image_src = "";
+                    if (content_type == "image")
+                    {
+                        image_src = "Files/Galleries/" + albume.id + "/" + gimage.file_name;
+                    }
+                    else if (content_type == "video")
+                    {
+                        image_src = "Files/Galleries/video.png";
+                    }
+                    
+                    <tr>
+                        <td><img src="~/@image_src"/></td>
+                        <td>
+                            <a class="btn btn-lg btn-danger" data-toggle="confirmation" data-title="Fotoğraf/Video Silinsin mi?"
+                               href="/Admin_Site/Transition_GaleriResimSil/@gimage.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                        </td>
+                    </tr>
+                }
+
+
+                </tbody>
+            </table>
+
+            <br/>
+            <br/>
+        </div>
+    </div>
+</div>

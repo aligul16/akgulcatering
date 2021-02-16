@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - Ön Kayıt Ekle";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Akgul_Yemek.Models
+
+@{
+    List<organization_type> org_types = (List<organization_type>)ViewData["org_types"];
+
+    string button_name = "";
+    string action_path = "";
+    organization_information org_info;
+    if (ViewData["org_info"] != null)
+    {
+        org_info = (organization_information)ViewData["org_info"];
+        button_name = "GÜNCELLE";
+        action_path = "Transition_SiparisDuzenle";
+    }
+    else
+    {
+        org_info = new organization_information(); org_info.date = DateTime.Now;
+        button_name = "EKLE";
+        action_path = "Transition_SiparisEkle";
+    }
+}
+
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+<link href="~/Content/clockpicker/bootstrap-clockpicker.min.css" rel="stylesheet" />
+<script src="~/Content/clockpicker/bootstrap-clockpicker.min.js"></script>
+<link href="~/Content/datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="~/Content/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="~/Content/datepicker/locales/bootstrap-datepicker.tr.min.js"></script>
+
+<div class="col-md-8">
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Ön Kayıt Ekle</div>
+
+        <form class="form-horizontal" action="/Admin_Sistem/@action_path" method="post" style="padding:15px;">
+
+            <input type="hidden" value="@org_info.id" name="id" />
+
+            <label for="is_adi">İş adı:<font color="red">*</font></label>
+            <input name="organization_name" type="text" class="form-control" id="is_adi" required value="@org_info.organization_name">
+            <br />
+            <label for="ad_soyad">Ad Soyad:<font color="red">*</font></label>
+            <input name="name_surname" type="text" class="form-control" id="ad_soyad" required value="@org_info.name_surname">
+            <br />
+            <label for="mail">E-mail:</label>
+            <input name="email" type="text" class="form-control" id="mail" value="@org_info.email">
+            <br />
+            <label for="telefon">Telefon:<font color="red">*</font></label>
+            <input name="telephone" type="number" class="form-control" id="telefon" required value="@org_info.telephone">
+            <br />
+            <label for="telefon2">2. Telefon:</label>
+            <input name="telephone2" type="number" class="form-control" id="telefon2" value="@org_info.telephone2">
+            <br />
+            <label for="tarih">Tarih:<font color="red">*</font></label>
+            <div class="input-group date">
+                <input type="text" id="tarih" name="date" required value="@Akgul_Yemek.Utility.FixDate(org_info.date.ToShortDateString())" class=" form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+            <br />
+            <label for="saat">Saat:<font color="red">*</font></label>
+            <div class="input-group clockpicker" data-autoclose="true">
+                <input type="text" class="form-control" name="time" required value="@org_info.time">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time"></span>
+                </span>
+            </div>
+            <script type="text/javascript">
+                $('.clockpicker').clockpicker();
+            </script>
+            <br />
+            <label for="kisi_sayisi">Kişi Sayısı:<font color="red">*</font></label>
+            <input name="people_count" type="number" class="form-control" id="kisi_sayisi" value="@org_info.people_count" required>
+            <br />
+            <label for="organizasyon_turu">Organizasyon Türü: </label>
+            <select class="form-control" id="organization_category_id" name="organization_category_id">
+                @foreach (organization_type org_type in org_types)
+                {
+                    string isenabled = (org_info.organization_category_id == org_type.id) ? "enabled" : "";
+
+                    <option @isenabled value="@org_type.id">@org_type.name</option>
+                }
+            </select>
+            <br />
+            <label for="kapora">Alınan Kapora:</label>
+            <input name="down_payment" type="number" class="form-control" id="kapora" value="@org_info.down_payment">
+            <br />
+            <label for="referance">Referans:</label>
+            <input name="referance" type="text" class="form-control" id="referance" value="@org_info.referance">
+            <br />
+            <label for="kisi_adres">Kişi Adresi:</label>
+            <textarea name="organizators_adress" class="form-control" rows="5" id="kisi_adres">@org_info.organizators_adress</textarea>
+            <br />
+            <label for="org_adres">Organizasyon Adresi:</label>
+            <textarea name="organization_adress" class="form-control" rows="5" id="org_adres">@org_info.organization_adress</textarea>
+            <br />
+            <label for="durum">Organizasyon Türü: </label>
+            <select class="form-control" id="organization_status" name="organization_status">
+                @{
+                    string on_kayit = (org_info.organization_status == 0) ? "selected" : "";
+                    string kesin_kayit = (org_info.organization_status == 1) ? "selected" : "";
+                }
+                <option @on_kayit value="0">ÖN KAYIT</option>
+                <option @kesin_kayit value="1">KESİN KAYIT</option>
+            </select>
+
+            <br /><br />
+            <button type="submit" class="btn btn-block btn-success">@button_name</button>
+
+            <br /><br />
+
+            @if (org_info.id > 0)
+            {
+                <a href="/Admin_Sistem/Siparis_Detay/@org_info.id" class="btn btn-warning">İPTAL</a>
+            }
+
+        </form>
+    </div>
+</div>
+
+<script>
+    $('.input-group.date').datepicker({
+        maxViewMode: 0,
+        todayBtn: "linked",
+        language: "tr",
+        calendarWeeks: true,
+        autoclose: true,
+        todayHighlight: true
+    });
+</script>

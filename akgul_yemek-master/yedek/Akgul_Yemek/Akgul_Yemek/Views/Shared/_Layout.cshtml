@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="shortcut icon" href="/Content/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/Content/images/favicon.ico" type="image/x-icon">
+
+    <!-- For MGALLERY -->
+    <link href="~/Content/MGallery_Items/mgallery.css" rel="stylesheet" />
+
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+
+
+</head>
+<body>
+    <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height: 80px">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="" href="#" style="margin-left:30px;">
+                    <img width="130" height="120" src="~/Content/images/akgul-logo.jpeg" />
+                </a>
+            </div> <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav"></ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="navbar" href="/">Anasayfa <span class="sr-only">(current)</span></a></li>
+                    <li id="1" class="dropdown">
+                        <a class="dropdown-toggle navbar" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:  pointer;border: 0;background-color: white;">
+                            Kurumsal
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="/Site/Kurumsal">Hakkımızda</a></li>
+                            <li><a href="#">Sertifikalarımız</a></li>
+                            <li><a href="#">Hizmetlerimiz</a></li>
+                            <li><a href="#">İnsan Kaynakları</a></li>
+                        </ul>
+                    </li>                    <li><a class="navbar" href="/Site/Menu">Menü</a></li>
+                    <li><a class="navbar" href="/Site/Galeri">Galeri</a></li>
+                    <li><a class="navbar" href="/Site/Iletisim">İletişim</a></li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav><div class="container" style="width: 100%;">
+
+
+
+
+
+        <div class="row">
+
+            <div class="col-md-6 hidden-xs" style="background-color: lightgreen; height: 85%;overflow:hidden;">
+                <!-- GOOGLE MAP-->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1511.533230238833!2d29.997031558180236!3d40.738563094832266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cb5a986f183c2b%3A0x628beeb6bb1eb570!2sHac%C4%B1+Mustafa%2C+Atat%C3%BCrk+Cd.+No%3A18%2C+41250+Kartepe%2FKocaeli!5e0!3m2!1str!2str!4v1517655903689" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>                <!-- ~GOOGLE MAP~-->
+            </div>
+
+            <div class="col-md-6 col-xs-12" style="background-color: #f3f3f3; height: 85%; padding-left: 20px;padding-right: 15px;overflow:scroll;">
+                @RenderBody()
+            </div>
+
+        </div>
+
+
+
+
+        <!--______________________________________________________________________________________________________________-->
+        <!-- MGALLERY -->
+        <div id="gallery_stage">
+
+            <!-- for transparent background -->
+            <div id="transparent_background">
+            </div>
+
+            <!-- mobile viewer -->
+            <div class="hidden-md hidden-lg visible-xs-block visible-sm-block">
+
+                <div id="gallery_mobile_viewer_buttons">
+                    <div style="float:right;">
+                        <img src="~/Content/MGallery_Items/close.png" id="gallery_stage_close_button_mobile">
+                    </div>
+
+                    <div style="float:right;">
+                        <img src="~/Content/MGallery_Items/right.png" id="gallery_stage_right_button_mobile">
+                    </div>
+
+                    <div style="float:right;">
+                        <img src="~/Content/MGallery_Items/left.png" id="gallery_stage_left_button_mobile">
+                    </div>
+                </div>
+
+                <div class="col-md-6" id="gallery_mobile_viewer_img_p">
+                    <div>
+                        <img id="gallery_stage_img_mobile" src="">
+                        <p id="gallery_stage_p_mobile"></p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- endof mobile_viewer -->
+            <!-- desktop_viewer -->
+            <div class="hidden-sm hidden-xs visible-md-block visible-lg-block">
+                <div class="col-md-6" id="gallery_desktop_viewer">
+
+                    <div id="gallery_desktop_viewer_buttons">
+                        <div style="float:right;">
+                            <img src="~/Content/MGallery_Items/close.png" id="gallery_stage_close_button_desktop">
+                        </div>
+
+                        <div style="float:right;">
+                            <img src="~/Content/MGallery_Items/right.png" id="gallery_stage_right_button_desktop">
+                        </div>
+
+                        <div style="float:right;">
+                            <img src="~/Content/MGallery_Items/left.png" id="gallery_stage_left_button_desktop">
+                        </div>
+                    </div>
+
+                    <div id="gallery_desktop_viewer_img_p">
+                        <img id="gallery_stage_img_desktop" src="">
+                        <p id="gallery_stage_p_desktop"></p>
+                    </div>
+                </div>
+            </div>
+            <!-- endof desktop_viewer -->
+
+        </div>
+        <!-- endof mgallery -->
+        <!-- MGALLERY -->
+        <!--______________________________________________________________________________________________________________-->
+
+
+
+
+    </div><!-- endof: Container -->
+
+
+
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- For MGALLERY -->
+    <script src="~/Content/MGallery_Items/mgallery.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+﻿@{
+    ViewBag.Title = "Listele";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@if (Session["type"] == null)
+{
+    Response.Redirect("/");
+    return;
+}
+
+@using Akgul_Yemek.Models
+@{
+    List<organization_information> today_org_infos = (List<organization_information>)ViewData["today_org_infos"];
+    List<organization_information> future_org_infos = (List<organization_information>)ViewData["future_org_infos"];
+    List<organization_information> finished_org_infos = (List<organization_information>)ViewData["finished_org_infos"];
+    List<organization_information> nonAccept_org_infos = (List<organization_information>)ViewData["nonAccept_org_infos"];
+
+
+    string gelecekMetni = "";
+    if (Session["type"].ToString() == "1")
+    {
+        gelecekMetni = "(1 Hafta)";
+    }
+
+}
+
+<style>
+    .panel-heading {
+        cursor: pointer;
+    }
+</style>
+
+
+<!-- it will show only to admin -->
+@if (Session["type"].ToString() == "0")
+{
+    <a href="/Admin_Sistem/OnKayit_EkleDuzenle" class="btn  btn-warning" style="float:right;">
+        <span class="glyphicon glyphicon-plus" style=""></span> ORG.EKLE
+    </a>
+}
+
+<!-- for space -->
+<div style="width:100%;margin:40px;"></div>
+
+<div class="panel-group">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="panel-title expand">
+                <div class="right-arrow pull-right">+</div>
+                <a href="#">Bugünkü - @today_org_infos.Count</a>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+            <div class="panel-body">
+
+                @for (int i = 0; i < today_org_infos.Count; i++)
+                {
+                    organization_information org_info = today_org_infos.ElementAt(i);
+                    ext_organization_information ext_org_info = new ext_organization_information() { org_information = org_info };
+
+                    string j = "a" + i;
+
+                    <div class="panel-group">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse_@j" class="panel-title expand">
+                                    <div class="right-arrow pull-right">+</div>
+                                    <a href="#">@(i + 1) | @org_info.organization_name | @org_info.date.ToShortDateString() - @org_info.time </a>
+                                </h4>
+                            </div>
+                            <div id="collapse_@j" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    <p>
+                                        @foreach (string str_text in ext_org_info.GetExplainText(Session["type"].ToString()))
+                                        {
+                                            if (str_text == "line")
+                                            {
+                                                <br />
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw(str_text)
+                                            }
+
+                                        }
+                                    </p>
+
+                                    @if (Session["type"].ToString() == "0")
+                                    {
+                                        <a class="btn btn-warning" href="/Admin_Sistem/Siparis_Detay/@org_info.id">DETAYLAR</a>
+                                        @Html.Raw("&nbsp;&nbsp;")
+                                        <a class="btn btn-danger" data-toggle="confirmation" data-title="Organizasyon Silinsin mi?"
+                                           href="/Admin_Sistem/Transition_SiparisSil/@org_info.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                                        @Html.Raw("&nbsp;&nbsp;")
+
+                                        <a class="btn btn-success" href="/Organizasyonlar/YetkiliCiktiSayfasi/@org_info.id">ÇIKTI AL</a>
+
+                                    }
+                                    else 
+                                    { 
+                                        <a class="btn btn-success" href="/Organizasyonlar/CiktiSayfasi/@org_info.id">ÇIKTI AL</a>
+                                    }
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="panel-group">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse4" class="panel-title expand">
+                <div class="right-arrow pull-right">+</div>
+                <a href="#">Gelecek @gelecekMetni - @future_org_infos.Count</a>
+            </h4>
+        </div>
+        <div id="collapse4" class="panel-collapse collapse">
+            <div class="panel-body">
+
+                @for (int i = 0; i < future_org_infos.Count; i++)
+                {
+                    organization_information org_info = future_org_infos.ElementAt(i);
+                    ext_organization_information ext_org_info = new ext_organization_information() { org_information = org_info };
+
+                    string j = "b" + i;
+
+                    // list only next week's organizations
+                    TimeSpan tsp = org_info.date - DateTime.Now;
+                    if (tsp.Days > 7)
+                    {
+                        continue;
+                    }
+
+                    <div class="panel-group">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse_@j" class="panel-title expand">
+                                    <div class="right-arrow pull-right">+</div>
+                                    <a href="#">@(i + 1) | @org_info.organization_name | @org_info.date.ToShortDateString() - @org_info.time </a>
+                                </h4>
+                            </div>
+                            <div id="collapse_@j" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    <p>
+                                        @foreach (string str_text in ext_org_info.GetExplainText(Session["type"].ToString()))
+                                        {
+                                            if (str_text == "line")
+                                            {
+                                                <br />
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw(str_text)
+                                            }
+
+                                        }
+                                    </p>
+
+                                    @if (Session["type"].ToString() == "0")
+                                    {
+                                        <a class="btn btn-warning" href="/Admin_Sistem/Siparis_Detay/@org_info.id">DETAYLAR</a>
+                                        @Html.Raw("&nbsp;&nbsp;")
+                                        <a class="btn btn-danger" data-toggle="confirmation" data-title="Organizasyon Silinsin mi?"
+                                           href="/Admin_Sistem/Transition_SiparisSil/@org_info.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                                        @Html.Raw("&nbsp;&nbsp;")
+
+                                        <a class="btn btn-success" href="/Organizasyonlar/YetkiliCiktiSayfasi/@org_info.id">ÇIKTI AL</a>
+
+                                    }
+                                    else 
+                                    { 
+                                        <a class="btn btn-success" href="/Organizasyonlar/CiktiSayfasi/@org_info.id">ÇIKTI AL</a>
+                                    }
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                }
+
+                @if (Session["type"].ToString() == "0")
+                {
+                    <a class="btn btn-info" href="/Admin_Sistem/OnKayit_Listele/1">HEPSİNİ GÖR</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- theese will show only to admin -->
+@if (Session["type"].ToString() == "0")
+{
+
+    <div class="panel-group">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse8" class="panel-title expand">
+                    <div class="right-arrow pull-right">+</div>
+                    <a href="#">Onay Bekleyen - @nonAccept_org_infos.Count</a>
+                </h4>
+            </div>
+            <div id="collapse8" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    @for (int i = 0; i < nonAccept_org_infos.Count && i < 3; i++)//for (int i = 0; i < nonAccept_org_infos.Count; i++)
+                    {
+                        organization_information org_info = nonAccept_org_infos.ElementAt(i);
+                        ext_organization_information ext_org_info = new ext_organization_information() { org_information = org_info };
+
+                        string j = "c" + i;
+
+                        <div class="panel-group">
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse_@j" class="panel-title expand">
+                                        <div class="right-arrow pull-right">+</div>
+                                        <a href="#">@(i + 1) | @org_info.organization_name | @org_info.date.ToShortDateString() - @org_info.time </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse_@j" class="panel-collapse collapse">
+                                    <div class="panel-body">
+
+                                        <p>
+                                            @foreach (string str_text in ext_org_info.GetExplainText(Session["type"].ToString()))
+                                            {
+                                                if (str_text == "line")
+                                                {
+                                                    <br />
+                                                }
+                                                else
+                                                {
+                                                    @Html.Raw(str_text)
+                                                }
+
+                                            }
+                                        </p>
+
+                                        @if (Session["type"].ToString() == "0")
+                                        {
+                                            <a class="btn btn-warning" href="/Admin_Sistem/Siparis_Detay/@org_info.id">DETAYLAR</a>
+                                            @Html.Raw("&nbsp;&nbsp;")
+                                            <a class="btn btn-danger" data-toggle="confirmation" data-title="Organizasyon Silinsin mi?"
+                                               href="/Admin_Sistem/Transition_SiparisSil/@org_info.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                                            @Html.Raw("&nbsp;&nbsp;")
+
+                                        <a class="btn btn-success" href="/Organizasyonlar/YetkiliCiktiSayfasi/@org_info.id">ÇIKTI AL</a>
+
+                                    }
+                                    else 
+                                    { 
+                                        <a class="btn btn-success" href="/Organizasyonlar/CiktiSayfasi/@org_info.id">ÇIKTI AL</a>
+                                    }
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    }
+
+                    @if (Session["type"].ToString() == "0")
+                    {
+                        <a class="btn btn-warning" href="/Admin_Sistem/OnKayit_Listele/3">HEPSİNİ GÖR</a>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="panel-group">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse6" class="panel-title expand">
+                    <div class="right-arrow pull-right">+</div>
+                    <a href="#">Geçmiş - @finished_org_infos.Count</a>
+                </h4>
+            </div>
+            <div id="collapse6" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    @for (int i = 0; i < finished_org_infos.Count && i < 3; i++)  //for (int i = 0; i < finished_org_infos.Count; i++)
+                    {
+                        organization_information org_info = finished_org_infos.ElementAt(i);
+                        ext_organization_information ext_org_info = new ext_organization_information() { org_information = org_info };
+
+                        string j = "d" + i;
+
+                        <div class="panel-group">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse_@j" class="panel-title expand">
+                                        <div class="right-arrow pull-right">+</div>
+                                        <a href="#">@(i + 1) | @org_info.organization_name | @org_info.date.ToShortDateString() - @org_info.time </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse_@j" class="panel-collapse collapse">
+                                    <div class="panel-body">
+
+                                        <p>
+                                            @foreach (string str_text in ext_org_info.GetExplainText(Session["type"].ToString()))
+                                            {
+                                                if (str_text == "line")
+                                                {
+                                                    <br />
+                                                }
+                                                else
+                                                {
+                                                    @Html.Raw(str_text)
+                                                }
+
+                                            }
+                                        </p>
+
+                                        @if (Session["type"].ToString() == "0")
+                                        {
+                                            <a class="btn btn-warning" href="/Admin_Sistem/Siparis_Detay/@org_info.id">DETAYLAR</a>
+                                            @Html.Raw("&nbsp;&nbsp;")
+                                            <a class="btn btn-danger" data-toggle="confirmation" data-title="Organizasyon Silinsin mi?"
+                                               href="/Admin_Sistem/Transition_SiparisSil/@org_info.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                                            @Html.Raw("&nbsp;&nbsp;")
+
+                                        <a class="btn btn-success" href="/Organizasyonlar/YetkiliCiktiSayfasi/@org_info.id">ÇIKTI AL</a>
+
+                                    }
+                                    else 
+                                    { 
+                                        <a class="btn btn-success" href="/Organizasyonlar/CiktiSayfasi/@org_info.id">ÇIKTI AL</a>
+                                    }
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    }
+
+                    @if (Session["type"].ToString() == "0")
+                    {
+                        <a class="btn btn-success" href="/Admin_Sistem/OnKayit_Listele/2">HEPSİNİ GÖR</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

@@ -1,0 +1,9 @@
+﻿.MNavigation {
+    background-color: #eceeef;
+    padding: 10px;
+    padding-left: 15px;
+}
+
+.MNavigation_item_text {
+    color: black;
+}

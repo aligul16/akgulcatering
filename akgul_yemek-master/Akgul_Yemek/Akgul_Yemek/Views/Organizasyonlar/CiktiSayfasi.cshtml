@@ -1,0 +1,192 @@
+﻿@{
+    Layout = null;
+}
+@using Akgul_Yemek.Models
+@{
+    organization_information org_info = (organization_information)ViewData["org_info"];
+
+    List<organization_service> services = (List<organization_service>)ViewData["services"];
+
+    List<organization_and_food> org_and_foods = (List<organization_and_food>)ViewData["org_and_foods"];
+
+    List<organization_and_service> org_and_service = (List<organization_and_service>)ViewData["org_and_service"];
+
+
+    float calculated_price_general = 0;
+    float calculated_price_food = 0;
+    string str_food = "";
+
+    foreach (organization_and_food org_food in org_and_foods)
+    {
+        if (str_food != "")
+        {
+            str_food += "<br />";
+        }
+
+        calculated_price_general += org_food.total_price;
+        calculated_price_food += org_food.total_price;
+
+        str_food += org_food.food.name + "(" + org_food.quantity + " " + org_food.food.food_units.name + ")";
+    }
+
+    string servis = "---";
+    string emanet = "---";
+    string personel = "---";
+    string aciklama = "---";
+
+    foreach (organization_service org_base_serv in services)
+    {
+        organization_and_service org_service = org_and_service.Where(w => w.organization_service_id == org_base_serv.id).FirstOrDefault();
+
+        if (org_service == null)
+        {
+            continue;
+        }
+
+
+        calculated_price_general += org_service.price;
+
+        if (org_service.organization_service.name == "Personel")
+        {
+            personel = org_service.information + " (" + org_service.price + "  TL)";
+        }
+        else if (org_service.organization_service.name == "Emanet")
+        {
+            emanet = org_service.information + " (" + org_service.price + "  TL)";
+        }
+        else if (org_service.organization_service.name == "Servis")
+        {
+            servis = org_service.information + " (" + org_service.price + "  TL)";
+        }
+        else if (org_service.organization_service.name == "Aciklama")
+        {
+            aciklama = org_service.information + " (" + org_service.price + "  TL)";
+        }
+    }
+
+    
+    float personal_price_food = calculated_price_food / org_info.people_count;
+
+    
+    
+    
+    string telephones="";
+    
+    if (!org_info.telephone.StartsWith("0"))
+    {
+        org_info.telephone = "0" + org_info.telephone;
+    }
+    if (!org_info.telephone2.StartsWith("0"))
+    {
+        org_info.telephone2 = "0" + org_info.telephone2;
+    }
+
+    telephones = org_info.telephone;
+    
+    if (org_info.telephone2 != "00000000000")
+    {
+        telephones += "&nbsp; &nbsp; | &nbsp; &nbsp;" + org_info.telephone2;
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CEMİYET / ORGANİZASYON DÖKÜMÜ</title>
+
+    <link rel="shortcut icon" href="/Content/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/Content/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.css">
+
+
+</head>
+<body class="container">
+    <center>
+        <div>
+            <font size="5">AKGÜL KARDEŞLER CATERING</font>
+        </div>
+    </center>
+
+    <div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>CEMİYET ADI</td>
+                    <td>@org_info.organization_name</td>
+                </tr>
+                <tr>
+                    <td>CEMİYET TARİH</td>
+                    <td>@org_info.date.ToShortDateString() - @org_info.time</td>
+                </tr>
+                <tr>
+                    <td>CEMİYET SAHİBİ</td>
+                    <td>@org_info.name_surname</td>
+                </tr>
+                <tr>
+                    <td>İRTİBAT</td>
+                    <td>@Html.Raw(telephones)</td>
+                </tr>
+                <tr>
+                    <td>CEMİYET YERİ</td>
+                    <td>@org_info.organization_adress</td>
+                </tr>
+                <tr>
+                    <td>YEMEKLER</td>
+                    <td>@Html.Raw(str_food)</td>
+                </tr>
+                <tr>
+                    <td>KİŞİ ADEDİ</td>
+                    <td>@org_info.people_count</td>
+                </tr>
+                <tr>
+                    <td>KİŞİ BAŞI ÜCRET</td>
+                    <td>@personal_price_food TL</td>
+                </tr>
+                <tr>
+                    <td>TOPLAM ÜCRET</td>
+                    <td>@calculated_price_food TL</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>SERVİS</td>
+                    <td>@servis</td>
+                </tr>
+                <tr>
+                    <td>EMANET</td>
+                    <td> @emanet</td>
+                </tr>
+                <tr>
+                    <td>PERSONEL</td>
+                    <td>@personel  -  Aşçı(@org_info.count_cook), Şef(@org_info.count_chef), Garson(@org_info.count_waiter), Diğer(@org_info.count_other)</td>
+                </tr>
+                <tr>
+
+                    <td>AÇIKLAMA</td>
+                    <td>@aciklama</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+
+        <div style="float:left;">
+            <font size="3"><u>CEMİYET SAHİBİ</u></font>
+        </div>
+
+        <div style="float:right;">
+            <font size="3"><u>AKGÜL KARDEŞLER CATERING</u></font>
+        </div>
+
+        <br /><br /><br /><br />
+
+
+    </div>
+</body>
+</html>

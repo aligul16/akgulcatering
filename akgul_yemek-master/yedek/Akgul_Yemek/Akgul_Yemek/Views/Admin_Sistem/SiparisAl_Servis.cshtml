@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Sipariş - Hizmet";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Akgul_Yemek.Models
+@{
+    organization_and_service org_and_service;
+
+    if (ViewData["org_and_service"] != null)
+    {
+        org_and_service = (organization_and_service)ViewData["org_and_service"];
+    }
+    else
+    {
+        organization_information org_info = (organization_information)ViewData["org_info"];
+        organization_service org_service = (organization_service)ViewData["org_service"];
+
+        org_and_service = new organization_and_service()
+        {
+            organization_information_id = org_info.id,
+            organization_service_id = org_service.id,
+            price = 0
+        };
+    }
+}
+
+
+<div class="col-md-6">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Sipariş - Hizmet</div>
+
+        <form class="form-horizontal" action="/Admin_Sistem/Transition_SiparisServisEkle" method="post" style="padding:15px;">
+
+            <input type="hidden" value="@org_and_service.id" name="id" />
+            <input type="hidden" value="@org_and_service.organization_information_id" name="organization_information_id" />
+            <input type="hidden" value="@org_and_service.organization_service_id" name="organization_service_id" />
+            <input type="hidden" value="Servis" name="service_name" />
+
+            <label for="hizmet">Servis:</label>
+            <textarea name="information" class="form-control" rows="5" id="hizmet">@org_and_service.information</textarea>
+
+            <br />
+            <label for="ucret">Ücret:</label>
+            <input name="price" type="number" class="form-control" value="@org_and_service.price" id="ucret">
+
+            <br /><br />
+            <button type="submit" class="btn  btn-block btn-success">Onayla - Sonraki Adım</button>
+        </form>
+
+        <form style="padding:15px;">
+            <a href="/Admin_Sistem/SiparisAl_Emanet/@org_and_service.organization_information_id" class="btn btn-warning">BU ADIMI ATLA</a>
+            <a href="/Admin_Sistem/Siparis_Detay/@org_and_service.organization_information_id" class="btn btn-warning">TAMAMLANDI</a>
+        </form>
+    </div>
+</div>

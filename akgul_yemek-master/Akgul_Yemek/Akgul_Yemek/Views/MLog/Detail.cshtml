@@ -1,0 +1,76 @@
+﻿@using Akgul_Yemek.Models
+@{
+    Layout = null;
+    MLogModel log = (MLogModel) ViewData["log"];
+    string logFile = (string) ViewData["logFile"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <title>Detail</title>
+</head>
+<body>
+
+<br/>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <center>
+                <h3>MLOG VIEWER</h3>
+            </center>
+        </div>
+        <div class="panel-body">
+            
+            <a href="/MLog/Index/@logFile" class="btn btn-primary">RETURN TO LOG FILE</a>
+
+            @if (log != null)
+            {
+                <div style="overflow: auto;">
+                    <br/>
+                    <table class="container table table-bordered">
+                        <thead>
+                        <tr class="info">
+                            <th colspan="2">Log Details</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <td>DATE-TIME:</td>
+                            <td>@log.datetime</td>
+                        </tr>
+                        <tr>
+                            <td>LOG-TYPE:</td>
+                            <td>@log.type</td>
+                        </tr>
+                        <tr>
+                            <td>CAPTION:</td>
+                            <td>@log.caption</td>
+                        </tr>
+                        <tr>
+                            <td>DETAIL:</td>
+                            <td>@Html.Raw(log.detail)</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+        </div>
+        <div class="panel-footer panel-primary">
+            <center>
+                MLog v-1.0.0
+            </center>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

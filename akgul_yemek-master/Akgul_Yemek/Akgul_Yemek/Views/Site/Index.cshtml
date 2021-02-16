@@ -1,0 +1,739 @@
+﻿@{
+    Layout = null;
+}
+
+@using Akgul_Yemek.Models
+
+@{
+    List<gallery_categories> albumes_categories = (List<gallery_categories>)ViewData["gallery_categories"];
+}
+
+@{
+    List<slider> sliders = (List<slider>)ViewData["sliders"];
+}
+
+
+@{
+    Iletisim_Model iletisim_model = (Iletisim_Model)ViewData["iletisim_model"];
+    IcerikModel icerikModel = (IcerikModel)ViewData["icerikModel"];
+    MessageModel message_model = (MessageModel)TempData["message_model"];
+}
+
+@{
+
+    List<site_menu> menus = (List<site_menu>)ViewData["menus"];
+}
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="~/Content/slider.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.css">
+
+    <title>AKGÜL YEMEK</title>
+    @Styles.Render("~/Content/css")
+
+    <link href="~/Content/Slider/css/swiper.min.css" rel="stylesheet" />
+    <link href="~/Content/Slider/slider.css" rel="stylesheet" />
+
+</head>
+<body style="overflow:hidden;">
+
+    <!-- navbar for pages without homepage -->
+    <nav id="navbar_head" class="navbar navbar-default" style="margin-bottom: 0px;min-height: 80px;border-radius:0px;z-index:100;">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="" href="/" style="margin-left:30px;">
+                    <img width="120" height="120" src="~/Content/images/akgul-logo.jpeg" />
+                </a>
+            </div> <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav"></ul>
+
+                <ul class="nav navbar-nav navbar-right navigation_menu" style="padding-top:20px;">
+                    <li id="0"><a class="navbar" href="#">Anasayfa <span class="sr-only">(current)</span></a></li>
+                    <li id="-1" class="dropdown">
+                        <a class="dropdown-toggle navbar" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:  pointer;border: 0;background-color: white;">
+                            Kurumsal
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li id="1" target="hakkimizda"><a href="#">Hakkımızda</a></li>
+                            <li style="border: solid 1px #DAA520"></li>
+                            <li id="1" target="sertifikalarimiz"><a href="#">Sertifikalarımız</a></li>
+                            <li style="border: solid 1px #DAA520"></li>
+                            <li id="1" target="hizmetlerimiz"><a href="#">Hizmetlerimiz</a></li>
+                            <li style="border: solid 1px #DAA520"></li>
+                            <li id="1" target="insankaynaklari"><a href="#">İnsan Kaynakları</a></li>
+                        </ul>
+                    </li>
+                    <li id="2"><a class="navbar" href="#">Menü</a></li>
+                    <li id="3"><a class="navbar" href="#">Galeri</a></li>
+                    <li id="4"><a class="navbar" href="#">İletişim</a></li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="" id="MSinglePage_Container" style=" width: 100%;">
+
+
+        <!--***********************************************************************************************************************************************-->
+        <div class="col-md-12 col-xs-12" id="sp_element_0" style="position:absolute;height: 100%;top:0px;">
+
+            <!--__________________________________________NAVBAR___FOR__DESKTOP___________________________-->
+            <nav id="navbar_homepage" class="navbar navbar-default  hidden-xs hidden-sm visible-md visible-lg" style="margin-bottom: 0px;min-height: 80px;top:65%;border-radius:0px;z-index:999999">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="" href="/" style="margin-left:30px;">
+                            <img width="130" height="120" src="~/Content/images/akgul-logo.jpeg" />
+                        </a>
+                    </div> <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                        <ul class="nav navbar-nav"></ul>
+
+                        <ul class="nav navbar-nav navbar-right navigation_menu" style="padding-top:20px;">
+                            <li id="0"><a class="navbar" href="#">Anasayfa <span class="sr-only">(current)</span></a></li>
+                            <li id="-1" class="dropdown">
+                                <a class="dropdown-toggle navbar" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:  pointer;border: 0;background-color: white;">
+                                    Kurumsal
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li id="1" target="hakkimizda"><a href="#">Hakkımızda</a></li>
+                                    <li style="border: solid 1px #DAA520"></li>
+                                    <li id="1" target="sertifikalarimiz"><a href="#">Sertifikalarımız</a></li>
+                                    <li style="border: solid 1px #DAA520"></li>
+                                    <li id="1" target="hizmetlerimiz"><a href="#">Hizmetlerimiz</a></li>
+                                    <li style="border: solid 1px #DAA520"></li>
+                                    <li id="1" target="insankaynaklari"><a href="#">İnsan Kaynakları</a></li>
+                                </ul>
+                            </li>
+                            <li id="2"><a class="navbar" href="#">Menü</a></li>
+                            <li id="3"><a class="navbar" href="#">Galeri</a></li>
+                            <li id="4"><a class="navbar" href="#">İletişim</a></li>
+
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+            <!--_________________________ENDOF-NAVBAR________________________________________________-->
+
+            <!--__________________________________________NAVBAR__FOR__MOBİLE____________________________-->
+            <nav id="navbar_homepage" class="navbar navbar-default   hidden-md hidden-lg visible-sm visible-xs" style="margin-bottom: 0px;min-height: 80px;top:0%;border-radius:0px;z-index:999999">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="" href="/" style="margin-left:30px;">
+                            <img width="130" height="120" src="~/Content/images/akgul-logo.jpeg" />
+                        </a>
+                    </div> <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                        <ul class="nav navbar-nav"></ul>
+
+                        <ul class="nav navbar-nav navbar-right navigation_menu" style="padding-top:20px;">
+                            <li id="0"><a class="navbar" href="#">Anasayfa <span class="sr-only">(current)</span></a></li>
+                            <li id="-1" class="navbar">
+                                <a class="dropdown-toggle navbar" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:  pointer;border: 0;background-color: white;">
+                                    Kurumsal
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li id="1" target="hakkimizda"><a href="#">Hakkımızda</a></li>
+                                    <li id="1" target="sertifikalarimiz"><a href="#">Sertifikalarımız</a></li>
+                                    <li id="1" target="hizmetlerimiz"><a href="#">Hizmetlerimiz</a></li>
+                                    <li id="1" target="insankaynaklari"><a href="#">İnsan Kaynakları</a></li>
+                                </ul>
+                            </li>
+                            <li id="2"><a class="navbar" href="#">Menü</a></li>
+                            <li id="3"><a class="navbar" href="#">Galeri</a></li>
+                            <li id="4"><a class="navbar" href="#">İletişim</a></li>
+
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+            <!--_________________________ENDOF-NAVBAR________________________________________________-->
+            <!--_________________________SLIDER________________________________________________-->
+            @*<div class="slider" id="slider" data-width="100" style="position:absolute;left:0px;top:0px;">
+                <button class="control_next hidden-xs hidden-sm visible-md visible-lg">&rarr;</button>
+                <button class="control_prev hidden-xs hidden-sm visible-md visible-lg">&larr;</button>
+                <ul>
+
+                    @foreach (slider slide in sliders)
+                    {
+                        <li>
+                            <div class="slide" style="background-image:url('Files/Slider/@slide.filename');background-size:100% 100%;">
+                                <div class="shadow">
+                                    <div class="teaser">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+
+                </ul>
+                <div class="progress_slider">
+                    <div class="bar"></div>
+                </div>
+            </div>*@
+
+
+        
+            <!-- Swiper -->
+            <div class="swiper-container" style="position:absolute;left:0px;top:0px;">
+                <div class="swiper-wrapper">
+                    
+                    @foreach (slider slide in sliders)
+                    {
+                        <div class="swiper-slide" style="background-image:url('Files/Slider/@slide.filename');background-size:cover;background-position-x: center;background-position-y: center;"></div>
+                    }
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
+
+            <!--_________________________ENDOF-SLIDER________________________________________________-->
+            
+            <!-- FOR DESKTOP -->
+            <div class="akgul-social-icons hidden-xs hidden-sm visible-md visible-lg" style="position:absolute;left:2%;top:5%;z-index:9999;">
+                <!-- Add font awesome icons -->
+                <a href="https://www.facebook.com/akgulcatering/">
+                    <p class="fa fa-facebook social-icons"></p>
+                </a>
+                <a href="https://www.instagram.com/akgulcatering/">
+                    <p class="fa fa-instagram social-icons"></p>
+                </a>
+            </div>
+
+            <div class="call hidden-xs hidden-sm visible-md visible-lg" style="position:absolute;left:70%;top:5%;color:white;z-index:9999;">
+                <i class="fa fa-phone" style="font-size:26px;"></i>
+                <font style="font-size:xx-large"><b>@iletisim_model.tel1 </b></font>
+            </div>
+            <div id="atoros" style="position:absolute;left:65%;top:85%;color:white;z-index:9999;">
+                <div class="hidden-xs" style="padding-top:12%;">
+                    <p style="font-style:italic;font-size:x-large;"><b>HELAL, DOĞAL, LEZZETLİ</b></p>
+                </div>
+            </div>
+            <div class="atoros2 hidden-xs hidden-sm visible-md visible-lg" style="position:absolute;left:89%;top:85%;z-index:9999;">
+                <div style="width:100%;height:100%;float:right;">
+                    <img src="~/Content/images/atoros.png" />
+                </div>
+            </div>
+            <div id="footer" class="hidden-xs hidden-sm visible-md visible-lg" style="position:absolute;left:2%;top:91%;color:white;z-index:9999;">
+                <div class="copyright" style="font-size:large;">Copyright 2017 © Akgül Yemek</div>
+            </div>
+
+
+            <!-- FOR MOBILE -->
+            <div class="akgul-social-icons hidden-md hidden-lg visible-sm visible-xs" style="position:absolute;left:2%;top:25%;z-index:9999;">
+                <!-- Add font awesome icons -->
+                <a href="https://www.facebook.com/akgulcatering/">
+                    <p class="fa fa-facebook social-icons_mobile"></p>
+                </a>
+                <a href="https://www.instagram.com/akgulcatering/">
+                    <p class="fa fa-instagram social-icons_mobile"></p>
+                </a>
+            </div>
+
+            <div class="call hidden-md hidden-lg visible-sm visible-xs" style="position:absolute;left:30%;top:22%;color:white;z-index:9999;">
+                <i class="fa fa-phone" style="font-size:18px;"></i>
+                <font style="font-size:medium;"><b>@iletisim_model.tel1 </b></font>
+            </div>
+
+            <div class="atoros2  hidden-md hidden-lg visible-sm visible-xs" style="position:absolute;left:25%;top:82%;z-index:9999;">
+                <div style="width:7%;height:7%;float:right;">
+                    <img src="~/Content/images/atoros.png" />
+                </div>
+            </div>
+
+            <div id="footer" class=" hidden-md hidden-lg visible-sm visible-xs" style="position:absolute;left:2%;top:92%;color:white;z-index:9999;">
+                <div class="copyright" style="font-size:small;">Copyright 2017 © Akgül Yemek</div>
+            </div>
+
+
+        </div>
+        <!------------------------------------------------------------------------------------------------------------------------------------------------------------->
+        <!--*********************************************************************************************************************************************************-->
+        <div class="col-md-12 col-xs-12" id="sp_element_1" style="position:absolute;height: 100%;top:0px;z-index:10;">
+
+            <div class="row" style="background-image:url(Files/Backgrounds/bg1.jpg);background-size:contain; margin-right:0px">
+                <!--__________________LEFT_PANEL_________________________-->
+                <div class="col-md-6 hidden-xs" style="height:100%;overflow:hidden;">
+
+                </div>
+                <!--__________________ENDO-LEFT_PANEL_________________________-->
+                <!--__________________CONTENT_________________________-->
+                <div class="col-md-6 col-xs-12" style="background-color: #f3f3f3;height:100%; padding-left: 20px;padding-right: 15px;padding-top:105px;overflow:scroll;">
+
+                    <div id="hakkimizda">
+
+                        <center>
+                            <h2>Hakkımızda</h2>
+                        </center>
+
+
+                        <br />
+                        <div class="col-md-11" style="margin-right:15px;text-align: justify;">
+
+                            @Html.Raw(icerikModel.hakkimizda)
+
+                        </div>
+
+                    </div><!--endof:hakkimizda-->
+                    <div id="sertifikalarimiz" style="display:none;">
+
+                        <center>
+                            <h2>Sertifikalarımız</h2>
+                        </center>
+
+                        <br />
+                        <div class="col-md-11" style="margin-right:15px;text-align: justify;">
+
+                            @Html.Raw(icerikModel.sertifikalarimiz)
+
+                        </div>
+
+                    </div>
+                    <div id="hizmetlerimiz" style="display:none;">
+
+                        <center>
+                            <h2>Hizmetlerimiz</h2>
+                        </center>
+
+
+                        <br />
+                        <div class="col-md-11" style="margin-right:15px;text-align: justify;">
+
+                            @Html.Raw(icerikModel.hizmetlerimiz)
+
+                        </div>
+
+                    </div>
+                    <div id="insankaynaklari" style="display:none;">
+
+                        <center>
+                            <h2>İnsan Kaynakları</h2>
+                        </center>
+
+
+                        <br />
+                        <div class="col-md-11" style="margin-right:15px;text-align: justify;">
+
+                            @Html.Raw(icerikModel.insankaynaklari)
+
+                        </div>
+
+                    </div>
+                </div>
+                <!--__________________ENDO-CONTENT_________________________-->
+
+            </div>
+            <!--__________________ENDO-ROW_________________________-->
+        </div>
+        <!------------------------------------------------------------------------------------------------------------------------------------------------------------->
+        <!--*********************************************************************************************************************************************************-->
+        <div class="col-md-12 col-xs-12" id="sp_element_2" style="position:absolute;height: 100%;top:0px;z-index:10;">
+
+            <div class="row" style="background-image:url(Files/Backgrounds/bg2.jpg);background-size:contain; margin-right:0px">
+                <!--__________________LEFT_PANEL_________________________-->
+                <div class="col-md-6 hidden-xs" style="height:100%;overflow:hidden;">
+
+                </div>
+                <!--__________________ENDO-LEFT_PANEL_________________________-->
+                <!--__________________CONTENT_________________________-->
+                <div class="col-md-6 col-xs-12" style="background-color: #f3f3f3;height:100%; padding-left: 20px;padding-right: 15px;padding-top:105px;overflow:scroll;">
+
+                    <center>
+                        <h2> Menülerimiz</h2>
+                    </center>
+
+                    @for (int i = 0; i < menus.Count; i++)
+                    {
+                        site_menu menu = menus.ElementAt(i);
+
+                        <div class="panel-group" id="accordion_@i">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion_@i" href="#collapse_@i">@menu.name</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse_@i" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+
+                                        @foreach (site_food_menu food in menu.site_food_menu)
+                                        {
+                                            string food_picture_name = food.image_name;
+
+                                            <div class="col-md-12 col-xs-12" style="margin-bottom:35px;">
+                                                <img src="~/Files/Food_Menu/@food_picture_name" alt="@food.name" class="pull-left gap-right">
+                                                <span class="menu-title">@food.name</span>
+                                                <br />
+                                                <div>
+                                                    <span style="font-size:15px;">@food.description</span>
+                                                </div>
+                                            </div>
+
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    }
+
+                </div>
+                <!--__________________ENDO-CONTENT_________________________-->
+
+            </div>
+            <!--__________________ENDO-ROW_________________________-->
+        </div>
+        <!------------------------------------------------------------------------------------------------------------------------------------------------------------->
+        <!--*********************************************************************************************************************************************************-->
+        <div class="col-md-12 col-xs-12" id="sp_element_3" style="position:absolute; height: 100%;top:0px;z-index:10;">
+
+            <div class="row" style="background-image:url(Files/Backgrounds/bg3.jpg);background-size:contain;  margin-right:0px">
+                <!--__________________LEFT_PANEL_________________________-->
+                <div class="col-md-6 hidden-xs" style="height:100%;overflow:hidden;">
+
+                </div>
+                <!--__________________ENDO-LEFT_PANEL_________________________-->
+                <!--__________________CONTENT_________________________-->
+                <div class="col-md-6 col-xs-12" style="background-color: #f3f3f3;height:100%; padding-left: 20px;padding-right: 15px;padding-top:105px;overflow:scroll;">
+
+                    <center>
+                        <h2>Galeri</h2>
+                    </center>
+
+
+                    <div class="row" style="padding-left:10px;">
+
+                        <div class='list-group'>
+                            @foreach (gallery_categories g_category in albumes_categories)
+                            {
+
+
+                                <hr style="border: solid 1px #222222;" />
+
+                                <div class="row" style="width:98%;">
+
+
+                                    <h3 style="padding-left:20px;">@g_category.name</h3>
+
+
+                                    @foreach (gallery_titles albume in g_category.gallery_titles)
+                                    {
+                                        bool flag_forFirst = true;
+
+                                        akgul_yemek_dbEntities db=new akgul_yemek_dbEntities();
+                                        List<gallery_images> _gallery_images=db.gallery_images.Where(w=>w.title_id==albume.id).ToList();
+                                        
+                                        
+                                        if (_gallery_images.Count > 0)
+                                        {
+                                    <!-- an albume for showing by MGallery -->
+                                            @Html.Raw("<div class=\"mgallery_albume\" id=\"mgallery_albume_" + albume.id + "\" style=\"padding-right:20px;\">");
+                                        }
+
+                                        foreach (gallery_images gimage in _gallery_images)
+                                        {
+                                            string hide_element = "display:none;";
+                                            string albume_title = "";
+                                            string content_type = (gimage.file_name.Contains("."))?"image":"video";
+                                            string image_src="";
+                                            string video_src="";
+                                            if (content_type=="image")
+                                            {
+                                                image_src = "Files/Galleries/"+albume.id+"/"+gimage.file_name;
+	                                        }
+                                            else if (content_type=="video")
+                                            {
+                                                image_src = "Files/Galleries/video.png";
+                                                video_src = "https://www.youtube.com/embed/"+gimage.file_name;
+	                                        }
+
+
+
+                                            if (flag_forFirst)
+                                            {
+                                                flag_forFirst = false;
+                                                hide_element = "";
+                                                albume_title = " <h6 id=\"title\" style=\"padding-left:10px;\">" + albume.title + "</h6> ";
+                                            }
+
+                                            <div class="col-md-3" style="padding:10px ; @hide_element">
+                                                @*<img src="~/Files/Galleries/@albume.id/@gimage.file_name" style="width:100%;height:100%;" />*@
+                                                <img content_type="@content_type" src="@image_src" video_src="@video_src" style="width:146px;height:96px;margin-left:10px;" />
+                                                @if (albume_title != "")
+                                                {
+                                                    @Html.Raw(albume_title);
+                                                }
+                                            </div>
+
+                                        } <!-- endof: albumeImageForeach -->
+                                        if (_gallery_images.Count > 0)
+                                        {
+                                            @Html.Raw("</div>");
+                                    <!-- endof albume-->
+                                        }
+
+                                    } <!-- endof: albumeForeach -->
+
+
+
+                                    <br />
+                                    <br />
+                                </div>
+                            }
+                        </div><!-- list group end-->
+                    </div><!-- endof: row-->
+                </div>
+                <!--__________________ENDO-CONTENT_________________________-->
+
+            </div>
+            <!--__________________ENDO-ROW_________________________-->
+        </div>
+        <!------------------------------------------------------------------------------------------------------------------------------------------------------------->
+        <!--*********************************************************************************************************************************************************-->
+        <div class="col-md-12 col-xs-12" id="sp_element_4" style="position:absolute;height: 100%;top:0px;z-index:10;">
+
+            <div class="row" style=" margin-right:0px;">
+                <!--<div class="row" style="background-image:url(Files/Backgrounds/bg4.jpg);background-size:contain;">-->
+                <!--__________________LEFT_PANEL_________________________-->
+                <div class="col-md-6 hidden-xs" style="height:100%;overflow:hidden;">
+                    <!-- GOOGLE MAP-->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1511.533230238833!2d29.997031558180236!3d40.738563094832266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cb5a986f183c2b%3A0x628beeb6bb1eb570!2sHac%C4%B1+Mustafa%2C+Atat%C3%BCrk+Cd.+No%3A18%2C+41250+Kartepe%2FKocaeli!5e0!3m2!1str!2str!4v1517655903689" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>                    <!-- ~GOOGLE MAP~-->
+                </div>
+                <!--__________________ENDO-LEFT_PANEL_________________________-->
+                <!--__________________CONTENT_________________________-->
+                <div class="col-md-6 col-xs-12" style="background-color: #f3f3f3;height:100%; padding-left: 20px;padding-right: 15px;padding-top:105px;overflow:scroll;">
+                    @if (message_model != null)
+                    {
+                        <br />
+                        <div class="alert alert-success" role="alert">
+                            <h5>@message_model.caption : @message_model.message </h5>
+                        </div>
+                    }
+
+                    <h2 style=" text-align: center; margin-bottom: 25px;">İletişim</h2>
+
+                    <p class="adres" aria-hidden="true">Adres: @iletisim_model.address</p>
+                    <p class="telefon" aria-hidden="true">Telefon-1: @iletisim_model.tel1 </p>
+                    <p class="telefon" aria-hidden="true">Telefon-2: @iletisim_model.tel2 </p>
+                    <p class="mail" aria-hidden="true">Mail: @iletisim_model.email </p>
+
+
+                    <div class="col-md-8 col-md-offset-2" style="margin-right:15px;">
+                        <div class="form-area">
+                            <form role="form" action="/Site/Transition_IletisimFormu" method="post">
+                                <br style="clear:both">
+                                <h3 style="margin-bottom: 25px; text-align: center;">Bize Ulaşın!</h3>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Adınız" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="E-posta adresiniz" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="tel" name="tel" placeholder="Telefonunuz" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Konu" required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" id="message" name="message" placeholder="Mesajınız" maxlength="140" rows="7"></textarea>
+                                </div>
+                                <button type="submit" id="submit" name="submit" class="btn btn-success pull-right">Gönder!</button>
+                                <br /><br /><br />
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <!--__________________ENDO-CONTENT_________________________-->
+
+            </div>
+            <!--__________________ENDO-ROW_________________________-->
+        </div>
+        <!------------------------------------------------------------------------------------------------------------------------------------------------------------->
+        <!--______________________________________________________________________________________________________________-->
+        <!-- MGALLERY -->
+        <div id="gallery_stage">
+
+            <!-- for transparent background -->
+            <div id="transparent_background">
+            </div>
+
+            <!-- mobile viewer -->
+            <div id="gallery_mobile_viewer" class="hidden-md hidden-lg visible-xs-block visible-sm-block">
+
+                <div id="gallery_mobile_viewer_buttons">
+                    <div style="float:right;">
+                        <img src="~/Content/MGallery_Items/close.png" id="gallery_stage_close_button_mobile">
+                    </div>
+
+                    <div style="float:right;">
+                        <img src="~/Content/MGallery_Items/right.png" id="gallery_stage_right_button_mobile">
+                    </div>
+
+                    <div style="float:right;">
+                        <img src="~/Content/MGallery_Items/left.png" id="gallery_stage_left_button_mobile">
+                    </div>
+                </div>
+
+                    <div class="col-md-6" id="gallery_mobile_viewer_img_p">
+                        <center>
+                            <img id="gallery_stage_img_mobile" src="" class="img-responsive" style="max-height:360px;">
+                            <p id="gallery_stage_p_mobile"></p>
+                        </center>
+                    </div>
+
+                <div class="col-xs-12 gallery_desktop_video_div" id="gallery_mobile_video_div">
+                    <center>
+                        <iframe id="gallery_mobile_video_element" src="" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="min-height:360px;"></iframe>
+                    </center>
+                </div>
+
+            </div>
+            <!-- endof mobile_viewer -->
+            <!-- desktop_viewer -->
+            <div class="hidden-sm hidden-xs visible-md-block visible-lg-block">
+                <div class="col-md-6" id="gallery_desktop_viewer">
+
+                    <div id="gallery_desktop_viewer_buttons">
+                        <div style="float:right;">
+                            <img src="~/Content/MGallery_Items/close.png" id="gallery_stage_close_button_desktop">
+                        </div>
+
+                        <div style="float:right;">
+                            <img src="~/Content/MGallery_Items/right.png" id="gallery_stage_right_button_desktop">
+                        </div>
+
+                        <div style="float:right;">
+                            <img src="~/Content/MGallery_Items/left.png" id="gallery_stage_left_button_desktop">
+                        </div>
+                    </div>
+
+                    <div id="gallery_desktop_viewer_img_p">
+                        <center>
+                            <img id="gallery_stage_img_desktop" src="" class="img-responsive" style="max-height:480px;">
+                            <p id="gallery_stage_p_desktop"></p>
+                        </center>
+                    </div>
+
+                    <div class="col-md-12 gallery_desktop_video_div" id="gallery_desktop_video_div" >
+                        <div>
+                            <iframe id="gallery_desktop_video_element" src="" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="min-height:480px;"></iframe>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- endof desktop_viewer -->
+
+        </div>
+        <!-- endof mgallery -->
+        <!-- MGALLERY -->
+        <!--______________________________________________________________________________________________________________-->
+
+    </div><!-- endof: Container -->
+
+
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+
+   <!-- old slider <script src="~/Scripts/slider.js"></script> -->
+
+    <!-- For MGALLERY -->
+    <link href="~/Content/MGallery_Items/mgallery.css" rel="stylesheet" />
+    <script src="~/Content/MGallery_Items/mgallery.js"></script>
+
+    <script src="~/Content/MSinglePage.js"></script>
+
+    <script src="~/Content/Slider/js/swiper.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            spaceBetween: 0,
+            centeredSlides: true,
+            loop: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+
+
+
+
+    <script type="text/javascript">
+        $(document).on('touched', function (event) {
+            alert("message");
+            var clickover = $(event.target);
+            var $navbar = $(".navbar-collapse");
+            var _opened = $navbar.hasClass("in");
+            if (_opened === true && !clickover.hasClass("navbar-toggle")) {
+                $navbar.collapse('hide');
+            }
+        });
+
+        // for new slider:
+
+       
+
+    </script>
+
+
+</body>
+</html>

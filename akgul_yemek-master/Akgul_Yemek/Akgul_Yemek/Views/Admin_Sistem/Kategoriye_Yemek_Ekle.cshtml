@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - Kategoriye Yemek Ekle";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models
+
+@{
+    food_category f_category = (food_category)ViewData["f_category"];
+    List<food> foods= (List<food>)ViewData["foods"];
+
+    List<food_units> _units = (List<food_units>)ViewData["_units"];
+}
+
+
+<div class="col-md-10">
+
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Kategori Yemekleri Sayfası</div>
+
+        <form action="/Admin_Sistem/Transition_YemekKategoriDuzenle" method="post">
+
+            <input type="hidden" value="@f_category.id" name="id" />
+
+            <div class="input-group" style="margin:30px;">
+                <span class="input-group-addon" id="sizing-addon1">Kategori adı</span>
+
+                <input value="@f_category.name" name="name" type="text" class="form-control" placeholder="İsim Girin">
+                <span class="input-group-btn">
+                    <button class="btn btn-warning" type="submit"> Düzenle  </button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+
+
+        <hr />
+
+
+        <div class="panel panel-info" style="margin:25px;">
+            <div class="panel-heading">Yemek Ekle</div>
+
+            <form class="form-horizontal" action="/Admin_Sistem/Transition_KategoriyeYemekEkle" method="post" style="padding:15px;">
+
+                <input type="hidden" value="@f_category.id" name="category_id" />
+
+                <label for="yemek">Yemek İsmi</label>
+                <input name="name" type="text" class="form-control" id="yemek">
+
+                <label for="birim">Birim</label>
+                <select class="form-control" id="birim" name="unit_id">
+                    @foreach (food_units unit in _units)
+                    {
+                        <option value="@unit.id">@unit.name</option>
+                    }
+                </select>
+
+                <label for="deger">Miktar</label>
+                <input name="quantity" type="number" class="form-control" id="deger">
+
+                <label for="fiyat">Fiyat</label>
+                <input name="price" type="text" class="form-control" id="fiyat">
+
+                <br /><br />
+                <button type="submit" class="btn btn-success">Ekle</button>
+            </form>
+        </div>
+
+
+
+
+        <hr />
+
+
+
+        <div class="panel panel-info" style="margin:25px;">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Yemekler</div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>İsim</th>
+                        <th>Birim</th>
+                        <th>Miktar</th>
+                        <th>Fiyat</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (food _food in foods)
+                    {
+
+                        <tr>
+                            <td>@_food.name</td>
+                            <td>@_food.food_units.name</td>
+                            <td>@_food.quantity</td>
+                            <td>@_food.price TL </td>
+                            <td>
+                                <a class="btn btn-danger" data-toggle="confirmation" data-title="Yemek Silinsin mi?"
+                                   href="/Admin_Sistem/Transition_KategoriYemekSil/@_food.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                            </td>
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+        </div><!-- /.row -->
+
+    </div>
+</div>

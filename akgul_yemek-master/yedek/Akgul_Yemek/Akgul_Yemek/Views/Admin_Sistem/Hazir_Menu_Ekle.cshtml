@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - Hazır Menü Ekle";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Akgul_Yemek.Models
+@{
+    List<ready_menu> ready_menus = (List<ready_menu>)ViewData["ready_menus"];
+}
+
+
+<div class="col-md-10">
+
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Hazır Menü</div>
+        
+        <form action="/Admin_Sistem/Transition_HazirMenuEkle" method="post">
+            <div class="input-group" style="margin:30px;">
+                <span class="input-group-addon" id="sizing-addon1">Menü Adı</span>
+
+                <input name="name" type="text" class="form-control" placeholder="İsim Girin">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit"> Ekle  </button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+
+
+        <hr />
+
+
+        <div class="panel panel-info" style="margin:25px;">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Hazır Menüler</div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Menü Adı</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach (ready_menu remenu in ready_menus)
+                    {
+                    <tr>
+                        <td>@remenu.name</td>
+                        <td>
+                            <a class="btn btn-danger" data-toggle="confirmation" data-title="Menü Silinsin mi?"
+                                href="/Admin_Sistem/Transition_HazirMenuSil/@remenu.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                            <a class="btn btn-warning" href="/Admin_Sistem/Hazir_Menu_Duzenle/@remenu.id">Düzenle</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div><!-- /.row -->
+
+    </div>
+</div>

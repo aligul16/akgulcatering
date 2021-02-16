@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - Arama";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Akgul_Yemek.Models
+@{
+    string id = "init";   
+    List<organization_information> org_infos = new List<organization_information>();
+    if(TempData["org_infos"]!=null)
+    {  
+        org_infos = (List<organization_information>)TempData["org_infos"];
+        id="0123";
+    }
+    
+    List<organization_type> org_types = (List<organization_type>)ViewData["org_types"];
+    TempData["org_infos"] = null;
+}
+
+
+<div class="col-md-8">
+    
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Arama Sayfası</div>
+
+        <form action="/Admin_Sistem/Transition_Arama" method="post">
+            <div class="input-group" style="margin:30px;">
+                <span class="input-group-addon" id="sizing-addon1">İsimle Ara</span>
+
+                <input  name="with_name" type="text" class="form-control" placeholder="İsimle Arama">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit">
+                        Ara <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+
+        <form action="/Admin_Sistem/Transition_Arama" method="post">
+
+            <div class="input-group" style="margin:30px;">
+                <span class="input-group-addon" id="sizing-addon1">Telefonla Ara</span>
+
+                <input name="with_phone" type="text" class="form-control" placeholder="Numarayla Ara">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit">Ara <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+    </div>
+
+    <hr />
+    @if (id != "init")
+    {
+        if (org_infos.Count <= 0)
+        {
+            <h5>Sonuç Bulunamadı.</h5>
+        }
+        else
+        {
+            <h5>@org_infos.Count Tane Sonuç Bulundu.</h5>
+        }
+    }
+
+    @foreach (organization_information org in org_infos)
+    {
+        <div class="panel panel-primary">
+            <!-- Default panel contents -->
+
+            <div class="panel-heading">@org.organization_name</div>
+
+            <div class="panel panel-info" style="margin: 15px;">
+                <table class="table table-bordered">
+
+                    <tbody>
+                        <tr>
+                            <td>Org. Tipi</td>
+                            <td>@org_types.Where(w => w.id == org.organization_category_id).FirstOrDefault().name</td>
+
+                        </tr>
+                        <tr>
+                            <td>Org.Sahibi</td>
+                            <td>@org.name_surname</td>
+                        </tr>
+
+                        <tr>
+                            <td>Telefon</td>
+                            <td>@org.telephone</td>
+
+                        </tr>
+                        <tr>
+                            <td>Tarih</td>
+                            <td>@org.date.ToShortDateString()</td>
+                        </tr>
+
+                        <tr>
+                            <td>Kapora</td>
+                            <td>@org.down_payment TL</td>
+
+                        </tr>
+                        <tr>
+                            <td>Adres</td>
+                            <td>@org.organization_adress</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 10px;">
+                <a class="btn btn-danger" data-toggle="confirmation" data-title="Kayıt Silinsin mi?"
+                   href="/Admin_Sistem/Transition_SiparisSil/arama_@org.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">SİL</a>
+                <a class="btn btn-warning" href="/Admin_Sistem/Siparis_Detay/@org.id">DETAYLAR</a>
+            </div>
+
+        </div>
+    }
+
+
+
+
+
+
+</div>
+

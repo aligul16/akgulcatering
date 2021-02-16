@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - Admin Panel";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Akgul_Yemek.Models
+@{
+    Admin_Istatistik_Model admin_istatistik = (Admin_Istatistik_Model)ViewData["statistics"];
+}
+
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">İstatislikler</div>
+    <div class="panel-body">
+
+
+        <table class="table table-bordered">
+            <thead>
+                <tr class="info">
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="info">
+                    <td>KULLANICI</td>
+                    <td>@admin_istatistik.username</td>
+                </tr>
+                <tr class="success">
+                    <td>ONAYLANMAMIŞ ORG. SAYISI</td>
+                    <td>@admin_istatistik.notApplied_org_count</td>
+                </tr>
+                <tr class="info">
+                    <td>GELECEK ORG. SAYISI</td>
+                    <td>@admin_istatistik.future_org_count</td>
+                </tr>
+                <tr class="success">
+                    <td>GEÇMİŞ ORG. SAYISI</td>
+                    <td>@admin_istatistik.finished_org_count</td>
+                </tr>
+                <tr class="info">
+                    <td>TAMAMLANMIŞ ORG. SAYISI</td>
+                    <td>@admin_istatistik.completely_finished_org_count</td>
+                </tr>
+                <tr class="success">
+                    <td>KAYITLI YEMEK SAYISI</td>
+                    <td>@admin_istatistik.food_count</td>
+                </tr>
+                <tr class="info">
+                    <td>KAYITLI MENU SAYISI</td>
+                    <td>@admin_istatistik.ready_menu_count</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>

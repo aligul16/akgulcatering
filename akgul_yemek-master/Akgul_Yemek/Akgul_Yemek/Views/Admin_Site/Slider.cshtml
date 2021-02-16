@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Slider";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models
+
+@{
+    List<slider> sliders = (List<slider>)ViewData["sliders"];
+}
+
+
+<div class="col-md-8">
+    
+    @using (Html.BeginForm("Transition_SliderEkle", "Admin_Site", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="font-size:20px;">
+                <label>SLAYT RESMİ YÜKLE</label>
+            </div>
+            <div class="panel-body" style="font-size:15px;">
+                <div class="input-group">
+                    <input class="form-control-file" type="file" name="picture" accept="image/*"><br />
+                    <input class="btn btn-success" type="submit" value="&nbsp;&nbsp; YÜKLE &nbsp;&nbsp;">
+                </div>
+            </div>
+        </div>
+    }
+
+    <hr />
+
+    <br />
+    <br />
+
+
+
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Aktif Fotoğraflar</div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Fotoğraf</th>
+                    <th>Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach (slider slide in sliders)
+                {
+                    <tr>
+                        <td><img src="~/Files/Slider/@slide.filename" /></td>
+                        <td>
+                            <a class="btn btn-lg btn-danger" data-toggle="confirmation" data-title="Fotoğraf Silinsin mi?"
+                               href="/Admin_Site/Transition_SliderSil/@slide.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

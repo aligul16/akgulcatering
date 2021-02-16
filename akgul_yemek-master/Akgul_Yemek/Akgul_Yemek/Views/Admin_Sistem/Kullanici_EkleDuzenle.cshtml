@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - KullaniciEkle Duzenle";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models
+@{
+    user _user = (user)ViewData["user"];
+
+    string action_path;
+    string button_name;
+    string isSelectedAdmin="";
+    string isSelectedEmployee="";
+
+    if (_user == null)
+    {
+        action_path = "/Admin_Sistem/Transition_KullaniciEkle";
+        button_name = "EKLE";
+
+        // otherwise we will take NullPointerException
+        _user = new user();
+    }
+    else
+    {
+        action_path = "/Admin_Sistem/Transition_KullaniciDuzenle";
+        button_name = "GÜNCELLE";
+
+        if (_user.type == 0)
+        {
+            isSelectedAdmin = "selected";
+            isSelectedEmployee = "";
+        }
+        else
+        {
+            isSelectedAdmin = "";
+            isSelectedEmployee = "selected";
+        }
+    }
+
+
+}
+
+
+<div class="col-md-8">
+    
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Kullanıcı Ekle / Düzenle</div>
+
+        <form class="form-horizontal" action="@action_path" method="post" style="padding:15px;">
+            <div class="">
+                <label for="ad">Adı:</label>
+                <input name="name" type="text" class="form-control" value="@_user.name" id="ad">
+            </div>
+
+            @if(_user.telephone==null)
+            { 
+                <div class="">
+                    <label for="telefon">Telefonu:</label>
+                    <input name="telephone" type="text" class="form-control" id="tel">
+                </div>
+            }
+            else
+            {
+                <input name="telephone" type="hidden" value="@_user.telephone" id="tel">
+            }
+
+            <div class="">
+                <label for="sifre">Şifre:</label>
+                <input name="password" type="text" class="form-control" value="@_user.password" id="sifre">
+            </div>
+
+            <div class="">
+                <label for="gorev">Görevi:</label>
+                <input name="job" type="text" class="form-control" value="@_user.job" id="gorev">
+            </div>
+
+            <div class="">
+                <label for="Kullanici_Tipi">Tipi:</label>
+                <select name="type" class="form-control">
+                    <option value="0" @isSelectedAdmin>YÖNETİCİ</option>
+                    <option value="1" @isSelectedEmployee>ÇALIŞAN</option>
+                </select>
+            </div>
+
+            <br /><br />
+            <button type="submit" class="btn btn-success">@button_name</button>
+        </form>
+    </div>
+</div>

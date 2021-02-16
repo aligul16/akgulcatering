@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Organizasyon_Tipi_Ekle_Sil";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Akgul_Yemek.Models
+@{
+    List<organization_type> org_types = (List<organization_type>)ViewData["types"];
+}
+
+
+<div class="col-md-10">
+
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">ORGANİZASYON TİPLERİ</div>
+
+        <form action="/Admin_Sistem/Transition_OrganizasyonTipiEkle" method="post">
+            <div class="input-group" style="margin:30px;">
+                <span class="input-group-addon" id="sizing-addon1">Organizasyon Tipi Adı</span>
+
+                <input name="name" type="text" class="form-control" placeholder="İsim Girin">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit"> Ekle  </button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+
+
+        <hr />
+
+
+        <div class="panel panel-info" style="margin:25px;">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Hazır Menüler</div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Menü Adı</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (organization_type org_type in org_types)
+                    {
+                        <tr>
+                            <td>@org_type.name</td>
+                            <td>
+                                <a class="btn btn-danger" data-toggle="confirmation" data-title="Menü Silinsin mi?"
+                                   href="/Admin_Sistem/Transition_OrganizasyonTipiSil/@org_type.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div><!-- /.row -->
+
+    </div>
+</div>

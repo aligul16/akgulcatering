@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - Kullanici Listele";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models
+@{
+    List<user> users = (List<user>)ViewData["users"];
+}
+
+
+
+<div class="panel panel-primary">
+    
+    <!-- Default panel contents -->
+    <div class="panel-heading">Kullanıcılar</div>
+    <div class="panel-body"><a href="/Admin_Sistem/Kullanici_EkleDuzenle" class="btn btn-success">Kullanıcı Ekle</a></div>
+
+    <div style="overflow-x:auto;">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Adı</th>
+                    <th>Telefon</th>
+                    <th>Görev</th>
+                    <th>Tipi</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (user _user in users)
+                {
+                    string type_str = (_user.type == 0) ? "YÖNETİCİ" : "ÇALIŞAN";
+
+                    <tr>
+                        <td>@_user.name</td>
+                        <td>@_user.telephone</td>
+                        <td>@_user.job</td>
+                        <td>@type_str</td>
+
+                        <td>
+                            <a class="btn btn-danger" data-toggle="confirmation" data-title="Kullanıcı Silinsin mi?"
+                               href="/Admin_Sistem/Transition_KullaniciSil/@_user.telephone" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                            <a class="btn btn-warning" href="/Admin_Sistem/Kullanici_EkleDuzenle/@_user.telephone">Düzenle</a>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

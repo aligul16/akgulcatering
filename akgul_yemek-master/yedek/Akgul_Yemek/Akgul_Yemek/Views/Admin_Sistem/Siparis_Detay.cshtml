@@ -1,0 +1,392 @@
+﻿@{
+    ViewBag.Title = "Siparis_Detay";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+}
+@using Akgul_Yemek.Models
+@{
+    organization_information org_info = (organization_information)ViewData["org_info"];
+
+    List<organization_service> services = (List<organization_service>)ViewData["services"];
+
+    List<organization_and_food> org_and_foods = (List<organization_and_food>)ViewData["org_and_foods"];
+
+    List<organization_and_service> org_and_service = (List<organization_and_service>)ViewData["org_and_service"];
+
+    List<organization_and_service> theSameDateOrgServices = (List<organization_and_service>)ViewData["theSameDateOrgServices"];
+
+    float org_total_price = 0;
+}
+
+<div class="col-md-8">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Organizasyon Bilgileri</div>
+
+        <form class="form-horizontal" action="/Admin_Sistem/Transition_SiparisEkle" method="post" style="padding:15px;">
+            <label for="is_adi">İş adı:</label>
+            <input name="organization_name" type="text" class="form-control" id="is_adi" disabled value="@org_info.organization_name">
+            <br />
+            <label for="ad_soyad">Ad Soyad:</label>
+            <input name="name_surname" type="text" class="form-control" id="ad_soyad" disabled value="@org_info.name_surname">
+            <br />
+            <label for="mail">E-mail:</label>
+            <input name="email" type="text" class="form-control" id="mail" disabled value="@org_info.email">
+            <br />
+            <label for="telefon">Telefon:</label>
+            <input name="telephone" type="text" class="form-control" id="telefon" disabled value="@org_info.telephone">
+            <br />
+            <label for="telefon2">2. Telefon:</label>
+            <input name="telephone2" type="text" class="form-control" id="telefon2" disabled value="@org_info.telephone2">
+            <br />
+            <label for="tarih">Tarih:</label>
+            <input name="date" type="text" class="form-control" id="tarih" disabled value="@org_info.date.ToShortDateString()">
+            <br />
+            <label for="saat">Saat:</label>
+            <input name="time" type="text" class="form-control" id="saat" disabled value="@org_info.time">
+            <br />
+            <label for="kisi_sayisi">Kişi Sayısı:</label>
+            <input name="people_count" type="number" class="form-control" id="kisi_sayisi" disabled value="@org_info.people_count">
+            <br />
+            <label for="organizasyon_turu">Organizasyon Türü: </label>
+            <input name="referance" type="text" class="form-control" id="referance" disabled value="@org_info.organization_type.name">
+            <br />
+            @*<label for="fiyat">Fiyat</label>
+                <input name="total_price" type="text" class="form-control" id="fiyat" value="@org_info.total_price" />*@
+
+            <label for="kapora">Alınan Kapora:</label>
+            <input name="down_payment" type="number" class="form-control" id="kapora" disabled value="@org_info.down_payment">
+            <br />
+            <label for="referance">Referans:</label>
+            <input name="referance" type="text" class="form-control" id="referance" disabled value="@org_info.referance">
+            <br />
+            <label for="kisi_adres">Kişi Adresi:</label>
+            <textarea name="organizators_adress" class="form-control" rows="5" disabled id="kisi_adres">@org_info.organizators_adress</textarea>
+            <br />
+            <label for="org_adres">Organizasyon Adresi:</label>
+            <textarea name="organization_adress" class="form-control" rows="5" disabled id="org_adres">@org_info.organization_adress</textarea>
+            <br />
+            <label for="durum">Organizasyon Türü: </label>
+            @{
+                string tur = (org_info.organization_status == 0) ? "ÖN KAYIT" : "KESİN KAYIT";
+            }
+            <br />
+            <input name="referance" type="text" class="form-control" id="referance" disabled value="@tur">
+
+            <br /><br />
+            <a href="/Admin_Sistem/OnKayit_EkleDuzenle/@org_info.id" class="btn btn-success">DÜZENLEME SAYFASINA GİT</a>
+
+        </form>
+    </div>
+
+
+
+
+    <br />
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">YEMEKLER</div>
+
+        <div class="panel-body">
+            <div style="overflow-x:auto;">
+                <label for="toplam_tutar">Eklenmiş Yemekler</label>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>İsim</th>
+                            <th>Birim</th>
+                            <th>Miktar</th>
+                            <th>Fiyat</th>
+                            <th>Kişi Sayısı</th>
+                            <th>Toplam Fiyat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{
+                            float food_total_price = 0;
+                            float foodsTotalPriceWithDiscount = 0;
+                        }
+                        @foreach (organization_and_food _food in org_and_foods)
+                        {
+                            food_total_price += _food.total_price;
+                            org_total_price += _food.total_price;
+
+                            <tr>
+                                <td>@_food.food.name</td>
+                                <td>@_food.food.food_units.name</td>
+                                <td>@_food.quantity</td>
+                                <td>@_food.price TL </td>
+                                <td>@_food.people_count </td>
+                                <td>@_food.total_price TL </td>
+                            </tr>
+
+                        }
+                        @{
+                            foodsTotalPriceWithDiscount = food_total_price - org_info.discount;
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <br />
+
+            @*<label for="toplam_tutar">Yemeklerin Toplam Fiyatı:  @food_total_price TL</label>*@
+            <table>
+                <tbody>
+
+                    <tr>
+                        <td>
+                            <label for="toplam_tutar">Yemeklerin Fiyatı</label>
+                        </td>
+                        <td>
+                            <label for="toplam_tutar">: @food_total_price TL</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="indirim">İndirim Tutarı: </label>
+                        </td>
+                        <td>
+                            <label for="indirim">: @org_info.discount TL</label>
+                            <a style="font-size:large;" data-toggle="modal" data-target="#discountModal">(Değiştir)</a>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <label for="toplam_tutar">Toplam(İndirimli) </label>
+                        </td>
+                        <td>
+                            <label for="toplam_tutar">: @foodsTotalPriceWithDiscount TL</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <br /><br />
+            @{int first_remenu_id = Convert.ToInt32(ViewData["first_remenu_id"].ToString());}
+            <a href="/Admin_Sistem/SiparisAl_Yemek/@(org_info.id+"_"+first_remenu_id)" class="btn btn-success">DÜZENLEME SAYFASINA GİT</a>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    @foreach (organization_service serv in services)
+    {
+        int service_id = serv.id;
+        organization_and_service org_and_serv = org_and_service.Where(w => w.organization_service_id == service_id).FirstOrDefault();
+        if (org_and_serv == null)
+        {
+            org_and_serv = new organization_and_service();
+            org_and_serv.organization_service = new organization_service() { name = serv.name };
+        }
+
+        org_total_price += org_and_serv.price;
+
+        <br />
+
+        <div class="panel panel-primary">
+
+            @if (org_and_serv.organization_service.name == "Personel")
+            {
+                <div class="panel-heading">@org_and_serv.organization_service.name</div>
+                <form class="form" action="/Admin_Sistem/Transition_SiparisPersonelGuncelle" method="post">
+
+                    <table style="margin:5px;width:100%;">
+                        <tbody>
+                            <tr>
+                                <td style="padding:15px 0px 15px 15px;">
+                                    <label for="hizmet">Aşçı:</label>
+                                </td>
+                                <td style="padding:15px 15px 15px 0px;">
+                                    <input type="number" class="form-control" value="@org_info.count_cook" name="count_cook" />
+                                </td>
+
+                                <td style="padding:15px 0px 15px 15px;">
+                                    <label for="hizmet">Şef:</label>
+                                </td>
+                                <td style="padding:15px 15px 15px 0px;">
+                                    <input type="number" class="form-control" value="@org_info.count_chef" name="count_chef" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:15px 0px 15px 15px;">
+                                    <label for="hizmet">Garson:</label>
+                                </td>
+                                <td style="padding:15px 15px 15px 0px;">
+                                    <input type="number" class="form-control" value="@org_info.count_waiter" name="count_waiter" />
+                                </td>
+
+                                <td style="padding:15px 0px 15px 15px;">
+                                    <label for="hizmet">Diğer:</label>
+                                </td>
+                                <td style="padding:15px 15px 15px 0px;">
+                                    <input type="number" class="form-control" value="@org_info.count_other" name="count_other" />
+                                </td>
+                            </tr>
+                            @*<tr>
+                                    <td colspan="4" style="padding:10px;">
+                                        <button type="submit" class="btn  btn-block btn-success">Personel Sayılarını Güncelle</button>
+                                    </td>
+                                </tr>*@
+                        </tbody>
+                    </table>
+                </form>
+
+
+                <hr style="border:1px solid black;" />
+
+            }
+            else if (org_and_serv.organization_service.name == "Emanet")
+            {
+                <div class="panel-heading">Emanet</div>
+                <center><h4>Aynı Gün Verilecek Emanetler</h4></center>
+        <div style="overflow-x:auto;">
+            <table class="table table-bordered" style="margin:5px;">
+                <thead>
+                    <tr>
+                        <th>Org. İsmi</th>
+                        <th>Saat</th>
+                        <th>Emanet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (theSameDateOrgServices != null)
+                    {
+                        foreach (organization_and_service orgService in theSameDateOrgServices)
+                        {
+                            <tr>
+                                <td>@orgService.organization_information.organization_name</td>
+                                <td>@orgService.organization_information.time</td>
+                                <td>@orgService.information</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+                <hr style="border:1px solid black;" />
+
+            }
+            else
+            {
+                <div class="panel-heading">@org_and_serv.organization_service.name</div>
+            }
+            <form class="form-horizontal" action="" method="post" style="padding:15px;">
+
+                <label for="hizmet">@org_and_serv.organization_service.name:</label>
+                <textarea name="information" class="form-control" disabled rows="5" id="hizmet">@org_and_serv.information</textarea>
+
+                @*@if (org_and_serv.organization_service.name != "Aciklama" && org_and_serv.organization_service.name != "Personel")
+                    {
+                        <br />
+                        <label for="ucret">Ücret:</label>
+                        <input name="price" type="number" class="form-control" disabled value="@org_and_serv.price" id="ucret">
+                    }*@
+
+                <br />
+                <label for="ucret">Ücret:</label>
+                <input name="price" type="number" class="form-control" disabled value="@org_and_serv.price" id="ucret">
+
+                <br /><br />
+
+
+                <a href="/Admin_Sistem/SiparisAl_@org_and_serv.organization_service.name/@(org_info.id)" class="btn btn-success">DÜZENLEME SAYFASINA GİT</a>
+
+                <a class="btn btn-danger" data-toggle="confirmation" data-title="Silinsin mi?"
+                   href="/Admin_Sistem/Transition_SiparisServisSil/@org_and_serv.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+            </form>
+
+        </div>
+    }
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">TOPLAM FİYAT</div>
+
+        <div class="panel-body">
+
+            <label style="font-size:medium;" for="indirim">İndirim Tutarı </label>
+            <label style="font-size:medium;" for="indirim">: @org_info.discount TL</label>
+            <a style="font-size:large;" data-toggle="modal" data-target="#discountModal">(Değiştir)</a>
+
+            <br />
+
+            <label for="hizmet">Herşey Dahil Toplam Fiyat: <b> @(org_total_price - org_info.discount) TL</b></label>
+        </div>
+    </div>
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">ORGANİZASYON DÖKÜMÜNÜ MÜŞTERİYE MESAJ OLARAK GÖNDER</div>
+
+        <div class="panel-body">
+
+            <form method="get" action="/Admin_Sistem/SmsGonder">
+                <input type="hidden" name="id" value="@org_info.id" />
+                <button class="btn btn-block btn-warning" type="submit">SMS GÖNDER</button>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">ORGANİZASYON DÖKÜMÜNÜ MÜŞTERİYE E-MAIL OLARAK GÖNDER</div>
+
+        <div class="panel-body">
+
+            <form method="post" action="/Admin_Sistem/Transition_BilgilendirmeMailiGonder">
+                <input type="hidden" name="org_info_id" value="@org_info.id" />
+                <button class="btn btn-block btn-warning" type="submit">E-MAIL GÖNDER</button>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<!-- MODALS -->
+<!-- discount update modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="discountModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalFoodName">İNDİRİM TUTARI (TL)</h4>
+            </div>
+
+            <form action="/Admin_Sistem/Transition_SiparisIndirimGuncelle" method="post">
+                <div class="modal-body">
+
+                    <input type="hidden" name="id" id="organization_information_id" value="@org_info.id" />
+                    <input type="hidden" name="remenu_id" id="remenu_id" value="0" />
+
+                    <input type="hidden" name="from" value="siparis_detay" />
+
+                    <div style="overflow-x:auto;">
+
+                        <input name="discount" type="number" class="form-control" id="discount" style="text-align:center;" value="@org_info.discount">
+                        <br />
+
+                    </div>
+                    <br />
+                    <button class="btn btn-block btn-success" type="submit">KAYDET</button>
+
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

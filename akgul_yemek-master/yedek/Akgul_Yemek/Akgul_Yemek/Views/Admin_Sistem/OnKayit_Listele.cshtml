@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - Ön Kayit Listele";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Akgul_Yemek.Models
+@{
+    List<organization_information> orgs = (List<organization_information>)ViewData["orgs"];
+    List<organization_type> org_types = (List<organization_type>)ViewData["org_types"];
+    int org_type_id = (int)ViewData["org_type_id"];
+
+    string isenabled_0 = "", isenabled_1 = "", isenabled_2 = "", isenabled_3 = "", isenabled_4 = "";
+
+    switch (org_type_id)
+    {
+        case 0:
+            isenabled_0 = "selected";
+            break;
+        case 1:
+            isenabled_1 = "selected";
+            break;
+        case 2:
+            isenabled_2 = "selected";
+            break;
+        case 3:
+            isenabled_3 = "selected";
+            break;
+        case 4:
+            isenabled_4 = "selected";
+            break;
+
+        default:
+            break;
+    }
+}
+
+<div class="col-md-8">
+
+    <div class=" panel panel-primary">
+        <div class="panel-body">
+
+            <form method="get" action="/Admin_Sistem/OnKayit_Listele_GET">
+                <label for="organizasyon_turu">Organizasyon Türü: </label>
+                <select class="form-control" id="id" name="id">
+                    <option @isenabled_3 value="3">ONAYLANMAMIŞ</option>
+                    <option @isenabled_0 value="0">BUGÜN</option>
+                    <option @isenabled_1 value="1">GELECEK</option>
+                    <option @isenabled_2 value="2">GEÇMİŞ</option>
+                    <option @isenabled_4 value="4">BİTMİŞ</option>
+                </select>
+                <br />
+                <input type="submit" class="btn btn-success" value="LİSTELE" />
+            </form>
+
+        </div>
+    </div>
+
+    @for(int i=0;i<orgs.Count;i++)
+    {
+        organization_information org = orgs.ElementAt(i);
+
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <!-- Default panel contents -->
+
+                <div class="panel-heading">
+                    <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse_@i" class="panel-title expand">
+                        <div class="right-arrow pull-right">+</div>
+                        <a href="#">@(i + 1) | @org.organization_name | @org.date.ToShortDateString() - @org.time </a>
+                    </h4>
+                </div>
+
+                <div id="collapse_@i" class="panel-collapse collapse">
+
+                    <div class="panel panel-info" style="margin: 15px;">
+                        <table class="table table-bordered">
+
+                            <tbody>
+                                <tr>
+                                    <td>Org. Tipi</td>
+                                    <td>@org_types.Where(w => w.id == org.organization_category_id).FirstOrDefault().name</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Org.Sahibi</td>
+                                    <td>@org.name_surname</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Telefon</td>
+                                    <td>@org.telephone</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Tarih</td>
+                                    <td>@org.date.ToShortDateString()</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Kapora</td>
+                                    <td>@org.down_payment TL</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Adres</td>
+                                    <td>@org.organization_adress</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="text-align: center; margin-bottom: 10px;">
+                        <a class="btn btn-danger" data-toggle="confirmation" data-title="Kayıt Silinsin mi?"
+                           href="/Admin_Sistem/Transition_SiparisSil/@org.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">SİL</a>
+                        <a class="btn btn-warning" href="/Admin_Sistem/Siparis_Detay/@org.id">DETAYLAR</a>
+
+                        <a class="btn btn-success" href="/Organizasyonlar/CiktiSayfasi/@org.id">ÇIKTI AL</a>
+                    </div>
+
+
+                </div><!-- endof collapse -->
+
+            </div>
+        </div>
+    }
+
+
+
+</div>

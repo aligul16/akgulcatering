@@ -1,0 +1,42 @@
+﻿p, th, td, .panel-heading, label, .alert {
+    font-size:18px;
+}
+
+img {
+    border-width: 0px;
+    max-height: 120px;
+    max-width: 120px;
+    margin: 0 auto;
+}
+
+.fa-fw {
+    width: 2em;
+    color: black;
+}
+
+.nav-pills > li > a {
+    font-size: 18px;
+    border-radius: 4px;
+    color: black;
+}
+
+.gap-right {
+    margin-right: 10px;
+    width: 90px;
+    height: 77px;
+    border: 2px solid #ff6a00;
+}
+
+.menu-title {
+    font-size: 25px;
+    margin-top: 0px;
+}
+
+.price {
+    font-size: 5px;
+}
+
+.menu-content {
+    margin-bottom: 35px;
+}
+

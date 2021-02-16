@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - Menu Listele";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models
+
+@{
+    List<site_menu> site_menu_s = (List<site_menu>)ViewData["site_menu_s"];
+}
+
+
+
+<div class="col-md-8" style="padding:20px;">
+
+    
+
+    <div class="row">
+
+            <div class=" panel panel-primary">
+                <div class="panel-heading">Menü Ekle</div>
+                <div class="panel-body">
+                    <form action="/Admin_Site/Transition_MenuEkle" method="post">
+                        <div class="input-group">
+                            <input name="name" type="text" class="form-control" placeholder="Menü Adı Girin..">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="submit">MENU EKLE</button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </form>
+                </div>
+            </div>
+
+        <hr />
+
+        <div class="panel panel-primary">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Menüler</div>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Menü Adı</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (site_menu _site_menu in site_menu_s)
+                    {
+
+                        <tr>
+                            <td>@_site_menu.name</td>
+                            <td>
+                                <a class="btn btn-danger" data-toggle="confirmation" data-title="Menü Silinsin mi?"
+                                   href="/Admin_Site/Transition_MenuSil/@_site_menu.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                                <a class="btn btn-warning" href="/Admin_Site/Menu_Detay/@_site_menu.id">Düzenle</a>
+
+                            </td>
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div><!-- /.row -->
+</div>

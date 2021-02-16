@@ -1,0 +1,106 @@
+﻿@using Akgul_Yemek.Models
+
+@{
+    Layout = null;
+
+    List<string> logFiles = (List<string>)ViewData["logFiles"];
+    List<MLogModel> logs = (List<MLogModel>)ViewData["logs"];
+    string id = (string)ViewData["id"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <title>Index</title>
+</head>
+<body>
+
+    <br />
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <center>
+                    <h3>MLOG VIEWER</h3>
+                </center>
+            </div>
+            <div class="panel-body">
+                <form action="/MLog/Index" method="get">
+                    <br />
+                    <select name="id" class="form-control">
+                        @if (logFiles != null)
+                        {
+                            foreach (string logFile in logFiles)
+                            {
+                                string isSelected = (id == logFile) ? "selected" : "";
+
+                                <option value="@logFile" @isSelected>@logFile</option>
+                            }
+                        }
+                    </select>
+                    <br />
+                    <input type="submit" class="btn btn-block btn-primary" value="SHOW LOGS" />
+                    <br />
+                </form>
+
+                <hr style="border: 1px solid black;" />
+
+                @if (logs != null)
+                {
+                    <center>
+                        <h4><b><u>LOG FILE: @id</u></b></h4>
+                    </center>
+
+                    <div style="overflow: auto;">
+                        <br />
+                        <table class="container table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>DATE-TIME</th>
+                                <th>TYPE</th>
+                                <th>CAPTION</th>
+                                <th>DETAIL</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            @for (int i = 0; i < logs.Count; i++)
+                            {
+                                MLogModel log = logs.ElementAt(i);
+
+                                <tr class="@log.log_style">
+                                    <td>@log.datetime</td>
+                                    <td>@log.type</td>
+                                    <td>@log.caption</td>
+
+                                    @if (log.log_style == "danger")
+                                    {
+                                        <td><a href="/MLog/Detail/@id-@i">Click For Details</a></td>
+                                    }
+                                    else
+                                    {
+                                        <td>@log.detail</td>
+                                    }
+
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <a href="/MLog/Transition_DeleteLogFile/@id" class="btn btn-primary" style="float: right;">Delete This Log File</a>
+                }
+            </div>
+            <div class="panel-footer panel-primary">
+                <center>
+                    MLog v-1.0.0
+                </center>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

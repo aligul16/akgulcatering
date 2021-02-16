@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "SmsGonder";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Akgul_Yemek.Models
+@{
+    SmsModel smsModel = (SmsModel)ViewData["smsModel"];
+}
+
+<div class="panel panel-primary">
+
+    <div class="panel-heading">SMS GÖNDER</div>
+
+    <div class="panel-body">
+
+        <div style="overflow-x:auto;">
+        
+            <form action="/Admin_Sistem/Transition_SmsGonder" method="post">
+                <input type="hidden" name="org_info_id" value="@smsModel.org_info_id" />
+                
+                <label>Org. Sahibi Telefon:</label>
+                <input type="text" name="phoneNumber" class="form-control" value="@smsModel.GetPhoneNumber()" />
+                <br />
+                <label>SMS İçeriği:</label>
+                <textarea name="content" rows="6" class="form-control">@smsModel.GetContent()</textarea>
+                <br />
+                <input type="submit" class="btn  btn-block btn-success" value="SMS GÖNDER" />
+            </form>
+    
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Iletisim";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models
+
+@{
+    Iletisim_Model iletisim_model = (Iletisim_Model)ViewData["iletisim_model"];
+}
+
+<div class="col-md-8">
+
+    
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Iletisim Bilgileri Güncelle</div>
+
+        <form class="form-horizontal" action="/Admin_Site/Transition_IletisimBilgileriniGuncelle" method="post" style="padding:15px;">
+            <div class="">
+                <label for="telefon">Telefon - 1</label>
+                <input name="tel1" type="text" class="form-control" value="@iletisim_model.tel1" id="telefon">
+            </div>
+            <div class="">
+                <label for="telefon">Telefon - 2</label>
+                <input name="tel2" type="text" class="form-control" value="@iletisim_model.tel2" id="telefon">
+            </div>
+            <div class="">
+                <label for="mail">E-mail:</label>
+                <input name="email" type="text" class="form-control" value="@iletisim_model.email" id="mail">
+            </div>
+            <div class="">
+                <label for="Adres">Adres:</label>
+                <textarea name="address" class="form-control" rows="5" id="Adres">@iletisim_model.address</textarea>
+            </div>
+            <br /><br />
+            <button type="submit" class="btn btn-success">Güncelle</button>
+        </form>
+        </div>
+    </div>

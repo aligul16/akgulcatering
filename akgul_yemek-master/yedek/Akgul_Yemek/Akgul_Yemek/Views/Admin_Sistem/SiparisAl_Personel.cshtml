@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Sipariş - Personel";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models
+
+@{
+    organization_and_service org_and_service;
+    organization_information org_info = (organization_information)ViewData["org_info"];
+
+    if (ViewData["org_and_service"] != null)
+    {
+        org_and_service = (organization_and_service)ViewData["org_and_service"];
+    }
+    else
+    {
+        organization_service org_service = (organization_service)ViewData["org_service"];
+
+        org_and_service = new organization_and_service()
+        {
+            organization_information_id = org_info.id,
+            organization_service_id = org_service.id,
+            price = 0
+        };
+    }
+}
+
+<div class="col-md-6">
+
+    <div class="panel panel-warning">
+        <div class="panel-heading">Sipariş - Personel</div>
+
+        <form class="form" action="/Admin_Sistem/Transition_SiparisPersonelGuncelle" method="post">
+            <input type="hidden" value="@org_and_service.organization_information_id" name="id" />
+
+            <table style="margin:5px;">
+                <tbody>
+                    <tr>
+                        <td style="padding:15px 0px 15px 15px;">
+                            <label for="hizmet">Aşçı:</label>
+                        </td>
+                        <td style="padding:15px 15px 15px 0px;">
+                            <input type="number" class="form-control" value="@org_info.count_cook" name="count_cook" />
+                        </td>
+
+                        <td style="padding:15px 0px 15px 15px;">
+                            <label for="hizmet">Şef:</label>
+                        </td>
+                        <td style="padding:15px 15px 15px 0px;">
+                            <input type="number" class="form-control" value="@org_info.count_chef" name="count_chef" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:15px 0px 15px 15px;">
+                            <label for="hizmet">Garson:</label>
+                        </td>
+                        <td style="padding:15px 15px 15px 0px;">
+                            <input type="number" class="form-control" value="@org_info.count_waiter" name="count_waiter" />
+                        </td>
+
+                        <td style="padding:15px 0px 15px 15px;">
+                            <label for="hizmet">Diğer:</label>
+                        </td>
+                        <td style="padding:15px 15px 15px 0px;">
+                            <input type="number" class="form-control" value="@org_info.count_other" name="count_other" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="padding:10px;">
+                            <button type="submit" class="btn  btn-block btn-success">Personel Sayılarını Güncelle</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+
+        <hr style="border:1px solid black;" />
+        <div class="panel-heading">Sipariş - Personel</div>
+
+
+        <form class="form-horizontal" action="/Admin_Sistem/Transition_SiparisServisEkle" method="post" style="padding:15px;">
+
+            <input type="hidden" value="@org_and_service.id" name="id" />
+            <input type="hidden" value="@org_and_service.organization_information_id" name="organization_information_id" />
+            <input type="hidden" value="@org_and_service.organization_service_id" name="organization_service_id" />
+            <input type="hidden" value="Personel" name="service_name" />
+
+            <label for="hizmet">Personel:</label>
+            <textarea name="information" class="form-control" rows="5" id="hizmet">@org_and_service.information</textarea>
+
+            <br />
+            <label for="ucret">Ücret:</label>
+            <input name="price" type="number" class="form-control" value="@org_and_service.price" id="ucret">
+
+            <br /><br />
+            <button type="submit" class="btn  btn-block btn-success">Onayla - Sonraki Adım</button>
+        </form>
+
+        <form style="padding:15px;">
+            <a href="/Admin_Sistem/SiparisAl_Aciklama/@org_and_service.organization_information_id" class="btn btn-warning">BU ADIMI ATLA</a>
+            <a href="/Admin_Sistem/Siparis_Detay/@org_and_service.organization_information_id" class="btn btn-warning">TAMAMLANDI</a>
+        </form>
+    </div>
+</div>

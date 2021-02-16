@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Sipariş - Emanet";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Akgul_Yemek.Models
+@{
+    organization_and_service org_and_service;
+
+    List<organization_and_service> theSameDateOrgServices = (List<organization_and_service>)ViewData["theSameDateOrgServices"];
+
+    if (ViewData["org_and_service"] != null)
+    {
+        org_and_service = (organization_and_service)ViewData["org_and_service"];
+    }
+    else
+    {
+        organization_information org_info = (organization_information)ViewData["org_info"];
+        organization_service org_service = (organization_service)ViewData["org_service"];
+
+        org_and_service = new organization_and_service()
+        {
+            organization_information_id = org_info.id,
+            organization_service_id = org_service.id,
+            price = 0
+        };
+    }
+}
+
+
+
+
+<div class="col-md-6">
+
+    <div class="panel panel-info">
+        <div class="panel-heading">Aynı Gün Verilecek Emanetler</div>
+
+        <div style="overflow-x:auto;">
+            <table class="table table-bordered" style="margin:5px;">
+                             <thead>
+                    <tr>
+                        <th>Org. İsmi</th>
+                        <th>Saat</th>
+                        <th>Emanet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (theSameDateOrgServices != null)
+                    {
+                        foreach (organization_and_service orgService in theSameDateOrgServices)
+                        {
+                            <tr>
+                                <td>@orgService.organization_information.organization_name</td>
+                                <td>@orgService.organization_information.time</td>
+                                <td>@orgService.information</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">Sipariş - Emanet</div>
+        <form class="form-horizontal" action="/Admin_Sistem/Transition_SiparisServisEkle" method="post" style="padding:15px;">
+
+            <input type="hidden" value="@org_and_service.id" name="id" />
+            <input type="hidden" value="@org_and_service.organization_information_id" name="organization_information_id" />
+            <input type="hidden" value="@org_and_service.organization_service_id" name="organization_service_id" />
+            <input type="hidden" value="Emanet" name="service_name" />
+
+            <label for="hizmet">Emanet:</label>
+            <textarea name="information" class="form-control" rows="5" id="hizmet">@org_and_service.information</textarea>
+
+            <br />
+            <label for="ucret">Ücret:</label>
+            <input name="price" type="number" class="form-control" value="@org_and_service.price" id="ucret">
+
+            <br /><br />
+            <button type="submit" class="btn  btn-block btn-success">Onayla - Sonraki Adım</button>
+        </form>
+
+        <form style="padding:15px;">
+            <a href="/Admin_Sistem/SiparisAl_Personel/@org_and_service.organization_information_id" class="btn  btn-warning">BU ADIMI ATLA</a>
+            <a href="/Admin_Sistem/Siparis_Detay/@org_and_service.organization_information_id" class="btn btn-warning">TAMAMLANDI</a>
+        </form>
+    </div>
+</div>

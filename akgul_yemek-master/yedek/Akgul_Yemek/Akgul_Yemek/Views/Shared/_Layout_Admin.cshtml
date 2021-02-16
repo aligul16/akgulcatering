@@ -1,0 +1,496 @@
+﻿@{
+    string current_dashboard = "";
+    string sistem_active_text = "";
+    string site_active_text = "";
+    string org_active_text = "";
+
+    if (Request.Url.PathAndQuery.IndexOf("Admin_Sistem") != -1)
+    {
+        current_dashboard = "sistem";
+
+        sistem_active_text = "active";
+        site_active_text = "";
+        org_active_text = "";
+    }
+    else if (Request.Url.PathAndQuery.IndexOf("Admin_Site") != -1)
+    {
+        current_dashboard = "site";
+        sistem_active_text = "";
+        site_active_text = "active";
+        org_active_text = "";
+    }
+    else if (Request.Url.PathAndQuery.IndexOf("/Organizasyonlar/") != -1)
+    {
+        current_dashboard = "org";
+        sistem_active_text = "";
+        site_active_text = "";
+        org_active_text = "active";
+    }
+
+    if (current_dashboard != "org" && (Session["type"] == null || Session["type"].ToString() == "1"))
+    {
+        Response.Redirect("/Uye/Giris/");
+        return;
+    }
+
+    if (current_dashboard == "org")
+    {
+        if (Session["telephone"] == null)
+        {
+            Response.Redirect("/Uye/Giris/");
+            return;
+        }
+        else
+        {
+            //Session.Add("isAdmin", "false");
+        }
+    }
+
+}
+
+@using Akgul_Yemek.Models
+@{
+    try
+    {
+        MessageModel mmodel = (MessageModel)Session["message"];
+    }
+    catch
+    {
+        Session.Add("message", null);
+    }
+
+    List<ready_menu_and_food> remenu_and_foods = null;
+    if (ViewData["remenu_and_foods"] != null)
+    {
+        remenu_and_foods = (List<ready_menu_and_food>)ViewData["remenu_and_foods"];
+    }
+
+    List<food> foods = null;
+    if (ViewData["foods"] != null)
+    {
+        foods = (List<food>)ViewData["foods"];
+    }
+
+    // for_ HAZIRMENUYEMEKEKLE
+    List<ext_CategoryAndFood> categories_and_foods = null;
+    if (ViewData["categories_and_foods"] != null)
+    {
+        categories_and_foods = (List<ext_CategoryAndFood>)ViewData["categories_and_foods"];
+    }
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <link rel="shortcut icon" href="/Content/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/Content/images/favicon.ico" type="image/x-icon">
+
+
+    <link href="~/Content/admin.css" rel="stylesheet" />
+
+    <link href="~/Content/MNavigation.css" rel="stylesheet" />
+
+    <link href="~/Content/Toastr_Notification/toastr.css" rel="stylesheet" />
+
+    <!-- For MGALLERY -->
+    <link href="~/Content/MGallery_Items/mgallery.css" rel="stylesheet" />
+
+    <!--_________________________________________________________________________________________-->
+    <script type='text/javascript'>
+
+        var categories_and_foods = [];
+
+        @if (Request.Url.PathAndQuery.IndexOf("Admin_Sistem/Hazir_Menu_Duzenle") != -1 || Request.Url.PathAndQuery.IndexOf("Admin_Sistem/SiparisAl_Yemek") != -1)
+        {
+        for (var j = 0; j < categories_and_foods.Count; j++) {
+            ext_CategoryAndFood ctf = categories_and_foods.ElementAt(j);
+
+            <text>
+        var ctf_element_@(j)={};
+        ctf_element_@(j).name = '@ctf.f_category.name';
+        ctf_element_@(j).id = '@ctf.f_category.id';
+        ctf_element_@(j).foods = [];
+        </text>
+
+
+
+            for (int i = 0; i < ctf.foods.Count; i++)
+            {
+                food fd = ctf.foods.ElementAt(i);
+
+                <text>
+
+        var _food_@i = { };
+        _food_@(i).name = '@fd.name';
+        _food_@(i).unit = '@fd.food_units.name';
+        _food_@(i).price =  @fd.price.ToString().Replace(",", ".");
+        _food_@(i).quantity =@fd.quantity;
+
+        _food_@(i).id =@fd.id;
+
+        ctf_element_@(j).foods[@i]=_food_@(i);
+
+        </text>
+            }
+
+            <text>
+        categories_and_foods[@(j)] = ctf_element_@j;
+        </text>
+            }
+        }
+    </script>
+
+    <!--_________________________________________________________________________________________-->
+
+    <script type="text/javascript">
+        @if (Request.Url.PathAndQuery.IndexOf("Admin_Sistem/SiparisAl_Yemek") != -1)
+        {
+            <text>
+
+        var _remenu_and_foods = [];
+
+        </text>
+
+	        for (int i = 0; i < remenu_and_foods.Count; i++)
+	        {
+	            ready_menu_and_food remenu_and_food = remenu_and_foods.ElementAt(i);
+
+	            <text>
+
+        var _remenu_and_food_@i = {};
+
+        _remenu_and_food_@(i).food_name = "@remenu_and_food.food.name";
+        _remenu_and_food_@(i).category_id = @remenu_and_food.food.category_id;
+        _remenu_and_food_@(i).price = @remenu_and_food.price;
+        _remenu_and_food_@(i).quantity = @remenu_and_food.quantity;
+        _remenu_and_food_@(i).food_id = @remenu_and_food.food_id;
+        _remenu_and_food_@(i).unit = "@remenu_and_food.food.food_units.name";
+
+        _remenu_and_foods[@(i)] = _remenu_and_food_@i;
+
+        </text>
+
+	        }
+
+	    }
+
+    </script>
+
+
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+
+
+    <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height: 80px">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <div style="vertical-align:middle;height:100%;">
+                    <a class="" href="#" style="margin-left:5px; float:left;">
+                        <img width="130" height="180" src="~/Content/images/akgul-logo.jpeg" />
+                    </a>
+                    &nbsp;
+                    @if (Session["type"].ToString() == "0")
+                    {
+                        <ul class="nav nav-pills" style="margin-top:14%;float:right;">
+                            <li class="@site_active_text"><a href="/Admin_Site/Index">SİTE</a></li>
+                            <li class="@sistem_active_text"><a href="/Admin_Sistem/Index">&nbsp;İŞ&nbsp;</a></li>
+                            <li class="@org_active_text"><a href="/Organizasyonlar/Listele">ORG.</a></li>
+                        </ul>
+                    }
+                </div>
+            </div> <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2" style="margin-top:2%;">
+                <ul class="nav navbar-nav">
+
+                    @if (Session["type"].ToString() == "0")
+                    {
+                        if (current_dashboard == "site")
+                        {
+                            <li><a class="navbar" href="/Admin_Site/Index">ANASAYFA</a></li>
+                            <li><a class="navbar" href="/Admin_Site/Icerik">İÇERİK</a></li>
+                            <li><a class="navbar" href="/Admin_Site/Slider">SLIDER</a></li>
+                            <li><a class="navbar" href="/Admin_Site/Menu_Listele">MENÜ</a></li>
+                            <li><a class="navbar" href="/Admin_Site/Galeri_Listele">GALERİ</a></li>
+                            <li><a class="navbar" href="/Admin_Site/Iletisim">İLETİŞİM</a></li>
+                            <li><a class="navbar" href="/Uye/Cikis">ÇIKIŞ <span class="glyphicon glyphicon-log-out"></span></a></li>
+                        }
+                        if (current_dashboard == "sistem")
+                        {
+                            <li><a class="navbar" href="/Admin_Sistem/OnKayit_EkleDuzenle">ORG.EKLE <span class="glyphicon glyphicon-plus" style=""></span></a></li>
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle navbar" data-toggle="dropdown" href="#">YEMEK-MENÜ<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="navbar" href="/Admin_Sistem/Yemek_Kategorisi_Ekle">YEMEK</a></li>
+                                    <li><a class="navbar" href="/Admin_Sistem/Hazir_Menu_Ekle">MENÜ</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle navbar" data-toggle="dropdown" href="#">ORGANİZASYON <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="navbar" href="/Admin_Sistem/Onkayit_listele">ORG. LİSTELE</a></li>
+                                    <li><a class="navbar" href="/Admin_Sistem/Organizasyon_Tipi_Ekle_Sil">ORG. TÜRLERİ</a></li>
+                                    <li><a class="navbar" href="/Admin_Sistem/Onkayit_listele">ARAMA</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a class="navbar" href="/Admin_Sistem/RaporAl">RAPOR</a></li>
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle navbar" data-toggle="dropdown" href="/Admin_Sistem/Kullanici_Listele">KULLANICI<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="navbar" href="/Admin_Sistem/Kullanici_Listele">LİSTELE</a></li>
+                                    <li><a class="navbar" href="/Admin_Sistem/Kullanici_EkleDuzenle">YENİ EKLE</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a class="navbar" href="/Uye/Cikis"><span class="glyphicon glyphicon-log-out"></span></a></li>
+                        }
+
+                    }
+
+                    @if (current_dashboard == "org")
+                    {
+                        <li><a class="navbar" href="/Uye/Cikis">ÇIKIŞ <span class="glyphicon glyphicon-log-out"></span></a></li>
+                    }
+                </ul>
+
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container" style="width: 100%;">
+
+        <div class="row">
+
+            @if (Session["type"].ToString() == "0")
+            {
+                <div class="col-md-2 col-lg-2 hidden-sm hidden-xs">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2">
+
+                                <ul class="nav nav-pills nav-stacked admin-menu">
+                                    <li><a href="/Admin_Site/Index"><i class="fa fa-home fa-fw"></i>Anasayfa</a></li>
+                                    <li><a href="/Admin_Site/Icerik"><i class="fa fa-list-alt fa-fw"></i>İçerik</a></li>
+                                    <li><a href="/Admin_Site/Slider"><i class="fa fa-list-alt fa-fw"></i>Slider</a></li>
+                                    <li><a href="/Admin_Site/Menu_Listele"><i class="fa fa-book fa-fw"></i>Menü</a></li>
+                                    <li><a href="/Admin_Site/Galeri_Listele"><i class="fa fa-photo fa-fw"></i>Galeri</a></li>
+                                    <li><a href="/Admin_Site/Iletisim"><i class="fa fa-phone fa-fw"></i>İletişim</a></li>
+                                </ul>
+
+
+                                <hr style="border: 1px solid gray;width:150%;" />
+
+                                <ul class="nav nav-pills nav-stacked admin-menu">
+                                    <li><a href="/Organizasyonlar/Listele"><i class="fa fa-group fa-fw"></i>Organizasyonlar</a></li>
+                                </ul>
+
+                                <hr style="border: 1px solid gray;width:150%;" />
+
+                                <ul class="nav nav-pills nav-stacked admin-menu">
+
+                                    <li><a href="/Admin_Sistem/Onkayit_listele"><i class="fa fa-address-book-o fa-fw"></i>Org.Listele</a></li>
+
+                                    <li><a href="/Admin_Sistem/Yemek_Kategorisi_Ekle"><i class="fa fa-sitemap fa-fw"></i>Yemek</a></li>
+                                    <li><a href="/Admin_Sistem/Hazir_Menu_Ekle"><i class="fa fa-book fa-fw"></i>Hazir Menü</a></li>
+
+
+                                    <li><a href="/Admin_Sistem/Arama"><i class="fa fa-search-plus fa-fw"></i>Arama</a></li>
+
+                                    <li><a href="/Admin_Sistem/Kullanici_Listele"><i class="fa fa-user fa-fw"></i>Kullanıcılar</a></li>
+
+
+                                    <li><a href="/Uye/Cikis"><i class="fa fa-sign-out fa-fw"></i>Çıkış Yap</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @{
+                string renderbody_css_class = "";
+                if (Session["type"].ToString() == "0")
+                {
+                    renderbody_css_class = "col-md-10 col-xs-12";
+                }
+                else
+                {
+                    renderbody_css_class = "col-md-12 col-xs-12";
+                }
+            }
+
+
+            <div class="@renderbody_css_class" style="background-color: #f3f3f3;padding:0px;height:100%;">
+
+                @*@if (false && Session["message"] != null)
+                    {
+                        MessageModel message_model = (MessageModel)Session["message"];
+                        Session["message"] = null;
+
+                        <div class="alert  alert-dismissable @message_model.MessageTypeToString()">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong> @message_model.caption </strong> @message_model.message
+                        </div>
+                    }*@
+
+
+                <div class="MNavigation">
+
+                    @if (ViewData["navigation"] != null)
+                    {
+                        string homeButtonUrl = "";
+                        if (current_dashboard == "sistem")
+                        {
+                            homeButtonUrl = "/Admin_Sistem/Index";
+                        }
+                        else
+                        {
+                            homeButtonUrl = "/Admin_Site/Index";
+                        }
+
+                        <a href="@homeButtonUrl">
+                            <span class="fa fa-home" style="font-size:16px;">
+                            </span>
+                        </a>
+                        <font size="3" class="MNavigation_item_text">
+                            &nbsp;/&nbsp;
+                        </font>
+
+
+                        List<NavigationModel> navigationList = (List<NavigationModel>)ViewData["navigation"];
+                        for (int i = 0; i < navigationList.Count; i++)
+                        {
+                            NavigationModel navModel = navigationList.ElementAt(i);
+                            if (i == navigationList.Count - 1)
+                            {
+                                <font size="3" class="MNavigation_item_text">
+                                    <b>
+                                        @navModel.name
+                                    </b>
+                                </font>
+                            }
+                            else
+                            {
+                                <a href="@navModel.url">
+                                    <font size="3" class="MNavigation_item_text">
+                                        @navModel.name
+                                    </font>
+                                </a>
+                                <font size="3" class="MNavigation_item_text">
+                                    &nbsp;/&nbsp;
+                                </font>
+                            }
+                        }
+                    }
+                </div>
+                <!-- endof: breadCumber -->
+
+                <div style="padding:15px;">
+
+                    @RenderBody()
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div><!-- endof: Container -->
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="http://bootstrap-confirmation.js.org/dist/bootstrap-confirmation2/bootstrap-confirmation.min.js"></script>
+
+    <script src="~/Content/Toastr_Notification/toastr.js"></script>
+
+    <script src="~/Scripts/mScripts/mHazirMenu.js"></script>
+    <script src="~/Scripts/mScripts/mSiparisAl_Yemek.js"></script>
+
+    @if (Request.Url.PathAndQuery.IndexOf("Admin_Site") != -1)
+    {
+        <script src="https://cdn.ckeditor.com/4.7.0/standard/ckeditor.js"></script>
+    }
+
+    <script>
+        $('[data-toggle=confirmation]').confirmation({
+            rootSelector: '[data-toggle=confirmation]',
+            // other options
+        });
+    </script>
+
+
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": 300,
+            "hideDuration": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000,
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        $(document).ready(function(){
+
+            @if (Session["message"] != null)
+             {
+                 MessageModel message_model = (MessageModel)Session["message"];
+                 Session["message"] = null;
+                 <text>
+
+            toastr["@message_model.MessageTypeToString()"]("@message_model.caption: @message_model.message");
+            </text>
+             }
+
+
+
+
+
+        });
+
+
+
+
+    </script>
+
+
+
+
+
+</body>
+</html>

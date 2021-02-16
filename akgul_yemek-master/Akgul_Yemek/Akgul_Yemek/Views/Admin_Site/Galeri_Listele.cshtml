@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Akgül Yemek - Galeri Listele";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models
+
+@{
+    List<gallery_categories> albume_category_list = (List<gallery_categories>)ViewData["g_categories"];
+}
+
+
+<div class="col-md-8">
+
+    <div class="row" style="margin:1px;">
+
+        <div class="panel panel-primary">
+            <!-- Default panel contents -->
+            <div class="panel-heading">GALERİ KATEGORİSİ EKLE</div>
+            <div class="panel-body">
+                <form action="/Admin_Site/Transition_GaleriKategoriEkle" method="post">
+                    <div class="input-group">
+                        <input name="name" type="text" class="form-control" style="margin: 10px;" placeholder=" Kategori Adı Girin..">
+                    </div>
+
+                    <button class="btn btn-success" style="margin: 10px;" type="submit">Galeriyi Kaydet</button>
+                </form>
+            </div>
+        </div>
+
+
+        <hr />
+        <br />
+        <br />
+
+        <div class="panel panel-primary">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Galeriler</div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Kategori Adı</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < albume_category_list.Count; i++)
+                    {
+                        gallery_categories albumeCategory = albume_category_list.ElementAt(i);
+
+                        <tr>
+                            <td>@albumeCategory.name</td>
+                            <td>
+                                <a class="btn btn-danger" data-toggle="confirmation" data-title="Galeri Silinsin mi?"
+                                   href="/Admin_Site/Transition_GaleriKategoriSil/@albumeCategory.id" data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                                <a class="btn btn-warning" href="/Admin_Site/Galeri_Kategori_Detay/@albumeCategory.id">Düzenle</a>
+                            </td>
+                        </tr>
+
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div><!-- /.row -->
+
+</div><!-- /.col- -->

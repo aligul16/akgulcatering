@@ -1,0 +1,631 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EFE3E35A-3912-4F2C-A46C-560E20329908}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Akgul_Yemek</RootNamespace>
+    <AssemblyName>Akgul_Yemek</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.93.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.93.0\lib\net40\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.3.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.3\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember.Signed, Version=1.3.0.0, Culture=neutral, PublicKeyToken=9e8f22703bef9a29, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.Signed.1.3.0\lib\net40\FastMember.Signed.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.30506.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.30506.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Code\Important_Things.cs" />
+    <Compile Include="Code\MEmail.cs" />
+    <Compile Include="Code\MExcell.cs" />
+    <Compile Include="Code\MExtentionMethods.cs" />
+    <Compile Include="Code\MLog.cs" />
+    <Compile Include="Code\MSms.cs" />
+    <Compile Include="Code\MTranslation.cs" />
+    <Compile Include="Code\Utility.cs" />
+    <Compile Include="Controllers\Admin_SistemController.cs" />
+    <Compile Include="Controllers\Admin_SiteController.cs" />
+    <Compile Include="Controllers\girisController.cs" />
+    <Compile Include="Controllers\MLogController.cs" />
+    <Compile Include="Models\DB_Model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DB_Model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DB_Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DB_Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DB_Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\details.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\food.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\food_category.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\food_units.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\gallery_categories.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\gallery_images.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\gallery_titles.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IcerikModel.cs" />
+    <Compile Include="Models\MLogModel.cs" />
+    <Compile Include="Controllers\OrganizasyonlarController.cs" />
+    <Compile Include="Controllers\SiteController.cs" />
+    <Compile Include="Controllers\UyeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extended_Classes.cs" />
+    <Compile Include="Models\IletisimForm_Model.cs" />
+    <Compile Include="Models\Iletisim_Model.cs" />
+    <Compile Include="Models\Istatistik_Model.cs" />
+    <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="Models\NavigationModel.cs" />
+    <Compile Include="Models\organization_and_food.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\organization_and_service.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\organization_information.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\organization_service.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\organization_type.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReportModel.cs" />
+    <Compile Include="Models\ready_menu.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ready_menu_and_food.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\site_food_menu.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\site_menu.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\slider.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SmsModel.cs" />
+    <Compile Include="Models\StatisticModel.cs" />
+    <Compile Include="Models\user.cs">
+      <DependentUpon>DB_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\admin.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap\js\npm.js" />
+    <Content Include="Content\clockpicker\bootstrap-clockpicker.min.css" />
+    <Content Include="Content\clockpicker\bootstrap-clockpicker.min.js" />
+    <Content Include="Content\datepicker\css\bootstrap-datepicker.min.css" />
+    <Content Include="Content\datepicker\js\bootstrap-datepicker.min.js" />
+    <Content Include="Content\datepicker\locales\bootstrap-datepicker.tr.min.js" />
+    <Content Include="Content\images\akgul-logo.jpeg" />
+    <Content Include="Content\images\atoros.png" />
+    <Content Include="Content\images\favicon.ico" />
+    <Content Include="Content\images\image1.jpg" />
+    <Content Include="Content\images\image2.jpg" />
+    <Content Include="Content\images\image3.jpg" />
+    <Content Include="Content\images\image4.jpg" />
+    <Content Include="Content\MNavigation.css" />
+    <Content Include="Content\Slider\css\swiper.css" />
+    <Content Include="Content\Slider\css\swiper.min.css" />
+    <Content Include="Content\Slider\js\swiper.esm.bundle.js" />
+    <Content Include="Content\Slider\js\swiper.esm.js" />
+    <Content Include="Content\Slider\js\swiper.js" />
+    <Content Include="Content\Slider\js\swiper.min.js" />
+    <Content Include="Content\Slider\slider.css" />
+    <Content Include="Content\Toastr_Notification\toastr.css" />
+    <Content Include="Content\Toastr_Notification\toastr.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Files\Food_Menu\1.jpg" />
+    <Content Include="Files\Food_Menu\106WhatsApp Image 2017-09-23 at 17.29.14.jpeg" />
+    <Content Include="Files\Food_Menu\149tulumba.jpg" />
+    <Content Include="Files\Food_Menu\2.jpg" />
+    <Content Include="Files\Food_Menu\2321.jpg" />
+    <Content Include="Files\Food_Menu\261kremalimantar.jpg" />
+    <Content Include="Files\Food_Menu\3.jpg" />
+    <Content Include="Files\Food_Menu\330IMG_20180311_133331 %28Copy%29.jpg" />
+    <Content Include="Files\Food_Menu\4.jpg" />
+    <Content Include="Files\Food_Menu\467WhatsApp Image 2017-09-23 at 17.29.54.jpeg" />
+    <Content Include="Files\Food_Menu\535WhatsApp Image 2017-09-23 at 17.29.53.jpeg" />
+    <Content Include="Files\Food_Menu\585IMG_20180311_132651 %28Copy%29.jpg" />
+    <Content Include="Files\Food_Menu\662IMG_20180311_133050 %28Copy%29.jpg" />
+    <Content Include="Files\Food_Menu\727IMG_20180311_133555 %28Copy%29.jpg" />
+    <Content Include="Files\Food_Menu\759WhatsApp Image 2017-09-23 at 17.29.21.jpeg" />
+    <Content Include="Files\Food_Menu\77WhatsApp Image 2018-02-06 at 19.47.54.jpeg" />
+    <Content Include="Files\Food_Menu\801IMG_20180311_133538 %28Copy%29.jpg" />
+    <Content Include="Files\Food_Menu\8181.jpg" />
+    <Content Include="Files\Food_Menu\891IMG_20180311_132944 %28Copy%29.jpg" />
+    <Content Include="Files\Food_Menu\951IMG_20180311_133009_1 %28Copy%29.jpg" />
+    <Content Include="Files\Food_Menu\991IMG_20180311_133032 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\16\691floww.jpg" />
+    <Content Include="Files\Galleries\19\1003001-HELAL SERTİFİKASI %281275 x 1754%29--888.jpg" />
+    <Content Include="Files\Galleries\1\img_1-1.jpg" />
+    <Content Include="Files\Galleries\1\img_1-2.jpg" />
+    <Content Include="Files\Galleries\1\img_1-3.jpg" />
+    <Content Include="Files\Galleries\23\113IMG_20180311_133022 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\23\11IMG_20180311_133339 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\23\178IMG_20180311_133042 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\23\444IMG_20180311_133315 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\23\580IMG_20180311_132817 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\23\605IMG_20180311_132936 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\23\765IMG_20180311_132851 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\23\780IMG_20180311_132958 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\23\911IMG_20180311_133152 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\23\933IMG_20180311_133503 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\23\948IMG_20180311_133236 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\23\9IMG_20180311_133205 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\24\696IMG_20180311_133555 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\24\778IMG_20180311_133538 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\25\254b %288%29.jpg" />
+    <Content Include="Files\Galleries\25\533IMG_20180311_133808 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\25\700IMG_20180311_133817 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\25\93ruyada-kuru-pasta-yemek.gif" />
+    <Content Include="Files\Galleries\25\957IMG_20180311_133825 %28Copy%29.jpg" />
+    <Content Include="Files\Galleries\2\673Screen Shot 2018-01-12 at 11.39.17.png" />
+    <Content Include="Files\Galleries\2\748WhatsApp Image 2018-02-06 at 19.32.49.jpeg" />
+    <Content Include="Files\Galleries\2\img_2-1.jpg" />
+    <Content Include="Files\Galleries\2\img_2-2.jpg" />
+    <Content Include="Files\Galleries\4\367source.gif" />
+    <Content Include="Files\Galleries\6\524WhatsApp Image 2017-09-23 at 17.30.55.jpeg" />
+    <Content Include="Files\Galleries\6\660WhatsApp Image 2017-09-23 at 17.30.49.jpeg" />
+    <Content Include="Files\Galleries\6\906WhatsApp Image 2017-09-23 at 17.30.12%281%29.jpeg" />
+    <Content Include="Files\Galleries\video.png" />
+    <Content Include="Content\MGallery_Items\close.png" />
+    <Content Include="Content\MGallery_Items\left.png" />
+    <Content Include="Content\MGallery_Items\mgallery.css" />
+    <Content Include="Content\MGallery_Items\mgallery.js" />
+    <Content Include="Content\MGallery_Items\none.png" />
+    <Content Include="Content\MGallery_Items\right.png" />
+    <Content Include="Content\MSinglePage.js" />
+    <Content Include="Content\slider.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Files\Backgrounds\bg1.jpg" />
+    <Content Include="Files\Backgrounds\bg2.jpg" />
+    <Content Include="Files\Backgrounds\bg3.jpg" />
+    <Content Include="Files\Sertifikalar\001-helalsertifikasi.jpg" />
+    <Content Include="Files\Sertifikalar\002-ISO22000.jpg" />
+    <Content Include="Files\Sertifikalar\003-ISO9001.jpg" />
+    <Content Include="Files\Sertifikalar\006-tarimisletmekayit.jpg" />
+    <Content Include="Files\Sertifikalar\007-markatescil.jpg" />
+    <Content Include="Files\Sertifikalar\010-kartepetesekkur.jpg" />
+    <Content Include="Files\Slider\10thumbnail_IMG_3602.jpg" />
+    <Content Include="Files\Slider\356birthday-cake-celebration-353347 %28Copy%29.jpg" />
+    <Content Include="Files\Slider\581geyik.jpg" />
+    <Content Include="Files\Slider\58AAEAAQAAAAAAAAdoAAAAJDk4NWI2NTlhLTdkNjktNDUxNC1hNjg2LWRjOGM0NWVhNWIzMA.jpg" />
+    <Content Include="Files\Slider\676WhatsApp Image 2017-09-23 at 17.30.12.jpeg" />
+    <Content Include="Files\Slider\79AAEAAQAAAAAAAAdoAAAAJDk4NWI2NTlhLTdkNjktNDUxNC1hNjg2LWRjOGM0NWVhNWIzMA.jpg" />
+    <Content Include="Files\Slider\810lkjkllö.jpg" />
+    <Content Include="Files\Slider\831WhatsApp Image 2018-02-06 at 19.32.49.jpeg" />
+    <Content Include="Files\Slider\995Meat_products_Knife_Cutting_board_Fork_517969_1366x768.jpg" />
+    <Content Include="Files\Slider\slider1.jpg" />
+    <Content Include="Files\Slider\slider2.jpg" />
+    <Content Include="Files\Slider\slider3.jpg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\datepicker\css\bootstrap-datepicker.min.css.map" />
+    <EntityDeploy Include="Models\DB_Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DB_Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DB_Model.edmx.diagram">
+      <DependentUpon>DB_Model.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\Slider\js\swiper.min.js.map" />
+    <Content Include="Files\MLogs\24.03.2018.log" />
+    <Content Include="Files\MLogs\10.04.2018.log" />
+    <Content Include="Files\MLogs\7.04.2018.log" />
+    <Content Include="Files\MLogs\8.04.2018.log" />
+    <Content Include="Files\MLogs\9.04.2018.log" />
+    <None Include="Properties\PublishProfiles\akgul-yemek - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\akgul-yemek - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\akgul.pubxml" />
+    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Models\DB_Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DB_Model.edmx</DependentUpon>
+      <LastGenOutput>DB_Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DB_Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DB_Model.edmx</DependentUpon>
+      <LastGenOutput>DB_Model.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\bootstrap-confirmation.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\mScripts\mSiparisAl_Yemek.js" />
+    <Content Include="Scripts\mScripts\mHazirMenu.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\slider.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_Admin.cshtml" />
+    <Content Include="Views\Organizasyonlar\Listele.cshtml" />
+    <Content Include="Views\Shared\_Layout_Uye.cshtml" />
+    <Content Include="Views\Uye\Giris.cshtml" />
+    <Content Include="Views\Uye\Cikis.cshtml" />
+    <Content Include="Views\Admin_Site\Index.cshtml" />
+    <Content Include="Views\Admin_Site\Slider.cshtml" />
+    <Content Include="Views\Admin_Site\Menu_Listele.cshtml" />
+    <Content Include="Views\Admin_Site\Menu_Detay.cshtml" />
+    <Content Include="Views\Admin_Site\Galeri_Listele.cshtml" />
+    <Content Include="Views\Admin_Site\Galeri_Detay.cshtml" />
+    <Content Include="Views\Admin_Site\Iletisim.cshtml" />
+    <Content Include="Views\Admin_Sistem\Index.cshtml" />
+    <Content Include="Views\Admin_Sistem\Yemek_Kategorisi_Ekle.cshtml" />
+    <Content Include="Views\Admin_Sistem\Kategoriye_Yemek_Ekle.cshtml" />
+    <Content Include="Views\Admin_Sistem\Hazir_Menu_Ekle.cshtml" />
+    <Content Include="Views\Admin_Sistem\Hazir_Menu_Duzenle.cshtml" />
+    <Content Include="Views\Admin_Sistem\SiparisAl_Yemek.cshtml" />
+    <Content Include="Views\Admin_Sistem\SiparisAl_Servis.cshtml" />
+    <Content Include="Views\Admin_Sistem\SiparisAl_Emanet.cshtml" />
+    <Content Include="Views\Admin_Sistem\SiparisAl_Personel.cshtml" />
+    <Content Include="Views\Admin_Sistem\Siparis_Detay.cshtml" />
+    <Content Include="Views\Admin_Sistem\OnKayit_Listele.cshtml" />
+    <Content Include="Views\Admin_Sistem\Arama.cshtml" />
+    <Content Include="Views\Admin_Sistem\OnKayit_EkleDuzenle.cshtml" />
+    <Content Include="Views\Site\Index.cshtml" />
+    <Content Include="Views\Admin_Sistem\Kullanici_Listele.cshtml" />
+    <Content Include="Views\Admin_Sistem\Kullanici_EkleDuzenle.cshtml" />
+    <Content Include="Views\Admin_Sistem\Organizasyon_Tipi_Ekle_Sil.cshtml" />
+    <Content Include="Views\Admin_Sistem\SiparisAl_Aciklama.cshtml" />
+    <Content Include="Views\MLog\Index.cshtml" />
+    <Content Include="Views\MLog\Detail.cshtml" />
+    <Content Include="Views\MLog\Settings.cshtml" />
+    <Content Include="Views\Site\Error.cshtml" />
+    <Content Include="Views\Admin_Site\Icerik.cshtml" />
+    <Content Include="Views\Admin_Site\Galeri_Kategori_Detay.cshtml" />
+    <Content Include="Views\Admin_Sistem\SmsGonder.cshtml" />
+    <Content Include="Views\Organizasyonlar\CiktiSayfasi.cshtml" />
+    <Content Include="Views\Admin_Sistem\RaporAl.cshtml" />
+    <Content Include="Views\Organizasyonlar\YetkiliCiktiSayfasi.cshtml" />
+    <Content Include="Views\Admin_Sistem\Istatistik.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\fonts\" />
+    <Folder Include="Exports\" />
+    <Folder Include="Files\Galleries\20\" />
+    <Folder Include="Files\Galleries\22\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2581</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2581/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

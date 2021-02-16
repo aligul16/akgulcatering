@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Akgül Yemek - Menu Detay";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@using Akgul_Yemek.Models
+
+@{
+    site_menu _site_menu = (site_menu)ViewData["site_menu"];
+    List<site_food_menu> site_foods = (List<site_food_menu>)ViewData["site_foods"];
+}
+
+
+<div class="col-md-8">
+
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">@_site_menu.name Menüsü</div>
+
+        <div class="panel-body">
+
+
+                @using (Html.BeginForm("Transition_MenuYemekEkle", "Admin_Site", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                {
+
+                    <input type="hidden" name="site_menu_id" value="@_site_menu.id" />
+
+                    <div class="form-group">
+                        <label for="yemekİsmi">Eklenecek Yemek ismi</label>
+                        <input name="name" type="text" class="form-control" id="yemekİsmi">
+                    </div>
+                    <div class="form-group">
+                        <label>Açıklama</label>
+                        <input name="description" type="text" class="form-control" id="description">
+                    </div>
+
+                    <label for="picture" style="font-size:20px">Fotoğraf Yükleme</label>
+                    <input type="file" name="picture" accept="image/*"><br />
+                    <input class="btn btn-success" type="submit" value="Ekle">
+
+                }
+
+        </div>
+    </div>
+
+        <div class="panel panel-primary">
+            <!-- Default panel contents -->
+            <div class="panel-heading">@_site_menu.name Menüsünün İçindekiler</div>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Adı</th>
+                        <th>Açıklama</th>
+                        <th>Fotoğraf</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (site_food_menu site_food in site_foods)
+                    {
+                        <tr>
+                            <td>@site_food.name</td>
+                            <td>@site_food.description</td>
+                            <td><img src="~/Files/Food_Menu/@site_food.image_name" /></td>
+                            <td>
+                                <a class="btn btn-lg btn-danger" data-toggle="confirmation" data-title="Yemek Silinsin mi?"
+                                   href="/Admin_Site/Transition_MenuYemekSil/@site_food.id"  data-btn-ok-label="Evet" data-btn-cancel-label="Hayır">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
